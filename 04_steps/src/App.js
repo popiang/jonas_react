@@ -26,13 +26,15 @@ function App() {
         }
     };
 
-	const handleCloseClick = () => {
-		setIsOpen((prevIsOpen) => !prevIsOpen);
-	}
+    const handleCloseClick = () => {
+        setIsOpen((prevIsOpen) => !prevIsOpen);
+    };
 
     return (
         <>
-			<button className="close" onClick={handleCloseClick}>&times;</button>
+            <button className="close" onClick={handleCloseClick}>
+                &times;
+            </button>
             {isOpen && (
                 <div className="steps">
                     <div className="numbers">
@@ -41,33 +43,48 @@ function App() {
                         <div className={step === 3 ? "active" : ""}>3</div>
                     </div>
 
-                    <p className="message">
-                        Step {step}: {messages[step - 1]}
-                    </p>
+                    <StepMessage step={step}>{messages[step - 1]}</StepMessage>
 
                     <div className="buttons">
-                        <button
-                            style={{
-                                backgroundColor: "#7950f2",
-                                color: "#fff",
-                            }}
-                            onClick={handlePrevClick}
+                        <Button
+                            textColor="#fff"
+                            bgColor="#7950f2"
+                            handleClick={handlePrevClick}
                         >
-                            Previous
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: "#7950f2",
-                                color: "#fff",
-                            }}
-                            onClick={handleNextClick}
+                            <span>👈🏻</span> Previous
+                        </Button>
+
+                        <Button
+                            textColor="#fff"
+                            bgColor="#7950f2"
+                            handleClick={handleNextClick}
                         >
-                            Next
-                        </button>
+                            Next <span>👉🏻</span>
+                        </Button>
                     </div>
                 </div>
             )}
         </>
+    );
+}
+
+function StepMessage({ step, children }) {
+    return (
+        <div className="message">
+            <h3>Step {step}</h3>
+            {children}
+        </div>
+    );
+}
+
+function Button({ textColor, bgColor, handleClick, children }) {
+    return (
+        <button
+            style={{ backgroundColor: bgColor, color: textColor }}
+            onClick={handleClick}
+        >
+            {children}
+        </button>
     );
 }
 
