@@ -29,9 +29,9 @@ function App() {
             {bill > 0 && (
                 <>
                     <Tip
-                        bill={bill}
-                        yourPercent={yourPercent}
-                        yourFriendPercent={yourFriendPercent}
+                        bill={Number(bill)}
+                        yourPercent={Number(yourPercent)}
+                        yourFriendPercent={Number(yourFriendPercent)}
                     />
                     <Button onHandleClick={handleResetClick}>Reset</Button>
                 </>
@@ -71,7 +71,7 @@ function SelectPercentage({ onSetPercent, children, percent }) {
 }
 
 function Tip({ bill, yourPercent, yourFriendPercent }) {
-    const totalTip = bill * yourPercent + bill * yourFriendPercent;
+    const totalTip = bill * (yourPercent / 100) + bill * (yourFriendPercent / 100);
     const totalPay = bill + totalTip;
 
     return (
