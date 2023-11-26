@@ -1,0 +1,54 @@
+.main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5px;
+}
+
+.sidebar {
+    background-color: antiquewhite;
+}
+
+.users {
+    list-style: none;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.user {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selected {
+    background-color: burlywood;
+}
+
+.user:hover {
+    background-color: rgb(162, 109, 39);
+	cursor: pointer;
+}
+
+.user button {
+    padding: 0 5px;
+    height: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.user button:hover {
+	cursor: pointer;
+}
+
+.address-details {
+    background-color: bisque;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.address-details label,
+.address-details input {
+    display: block;
+}
