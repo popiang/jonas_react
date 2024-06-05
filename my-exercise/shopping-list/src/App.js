@@ -31,7 +31,6 @@ function ShoppingList() {
     }
 
     function handleItemDone(id) {
-		console.log(id);
         setItems((curItems) =>
             curItems.map((item) => {
                 if (item.id === id) {
