@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
 import StarRating from "./StarRating";
 
 const average = (arr) =>
@@ -7,7 +8,7 @@ const average = (arr) =>
 const KEY = "ac0c21b8";
 
 export default function App() {
-    const [query, setQuery] = useState("inception");
+    const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -43,34 +44,41 @@ export default function App() {
         setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
 
+    const debouncedFetchMoviesRef = useRef(
+        debounce((query, controller) => fetchMovies(query, controller), 300)
+    );
+
+    const fetchMovies = async (query, controller) => {
+        try {
+            setIsLoading(true);
+            setError("");
+
+            const res = await fetch(
+                `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+                { signal: controller.signal }
+            );
+
+            if (!res.ok)
+                throw new Error("Something went wrong with fetching movies");
+
+            const data = await res.json();
+
+            if (data.Response === "False") throw new Error("Movie not found");
+
+            setMovies(data.Search);
+            setError("");
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                setError(error.message);
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(
         function () {
-            async function fetchMovies() {
-                try {
-                    setIsLoading(true);
-                    setError("");
-
-                    const res = await fetch(
-                        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-                    );
-
-                    if (!res.ok)
-                        throw new Error(
-                            "Something went wrong with fetching movies"
-                        );
-
-                    const data = await res.json();
-
-                    if (data.Response === "False")
-                        throw new Error("Movie not found");
-
-                    setMovies(data.Search);
-                } catch (error) {
-                    setError(error.message);
-                } finally {
-                    setIsLoading(false);
-                }
-            }
+            const controller = new AbortController();
 
             if (query.length < 3) {
                 setMovies([]);
@@ -78,7 +86,12 @@ export default function App() {
                 return;
             }
 
-            fetchMovies();
+			handleCloseMovie();
+            debouncedFetchMoviesRef.current(query, controller);
+
+            return function () {
+                controller.abort();
+            };
         },
         [query]
     );
@@ -281,6 +294,23 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
         onAddWatched(newWatchedMovie);
         onCloseMovie();
     }
+
+    useEffect(
+        function () {
+            function callback(e) {
+                if (e.code === "Escape") {
+                    onCloseMovie();
+                }
+            }
+
+            document.addEventListener("keydown", callback);
+
+            return function () {
+                document.removeEventListener("keydown", callback);
+            };
+        },
+        [onCloseMovie]
+    );
 
     useEffect(
         function () {
