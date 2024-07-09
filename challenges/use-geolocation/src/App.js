@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useGeolocation } from "./useGeolocation";
 
 export default function App() {
+    const [countClicks, setCountClicks] = useState(0);
+    const {
+        isLoading,
+        position: { lat, lng },
+        error,
+        getPosition,
+    } = useGeolocation();
 
-	const [countClicks, setCountClicks] = useState(0);
-	const {isLoading, position, error, getPosition} = useGeolocation();
-	const { lat, lng } = position;
-  	
-	function handleGetPosition() {
-		setCountClicks((count) => count + 1);
-		getPosition();
-	}
+    function handleGetPosition() {
+        setCountClicks((count) => count + 1);
+        getPosition();
+    }
 
     return (
         <div>
