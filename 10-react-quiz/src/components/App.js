@@ -38,7 +38,6 @@ function reducer(state, action) {
         case "start":
             return {
                 ...state,
-				secondsRemaining: 10,
                 status: "active",
             };
         case "newAnswer":
@@ -69,11 +68,9 @@ function reducer(state, action) {
             };
         case "restart":
             return {
-                ...state,
-                status: "ready",
-                index: 0,
-                answer: null,
-                points: 0,
+                ...initialState,
+				status: "ready",
+				questions: state.questions
             };
         case "tick":
             return {
@@ -112,6 +109,8 @@ export default function App() {
             .then((res) => res.json())
             .then((data) => dispatch({ type: "dataReceived", payload: data }))
             .catch((error) => dispatch({ type: "dataFailed" }));
+		
+		console.log("questions fetched");
     }, []);
 
     return (

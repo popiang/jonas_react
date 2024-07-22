@@ -16,3 +16,4 @@ function Timer({ dispatch, secondsRemaining }) {
 }
 
 export default Timer;
+ 
