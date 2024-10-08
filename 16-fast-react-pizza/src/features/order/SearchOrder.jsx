@@ -10,7 +10,7 @@ function SearchOrder() {
 
 		if (!query) return;
 
-		navigate(`/order/${query}`);
+		navigate(`/order/${query}`); 
 		setQuery("");
     };
 
