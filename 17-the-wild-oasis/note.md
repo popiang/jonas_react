@@ -19,3 +19,15 @@
 	 - add hover to the button
    - create styled component for Input in Input.jsx and import it in App to display
      - style the input using css variable
+9. create heading style component, so it can be reused for different heading style, bring the H1 code, change the name to Heading and import in back in App
+   - send a prop, as="h1" in the Heading
+   - in Heading.jsx, accept the prop like below:
+       ${(props) =>
+        props.as === "h1" &&
+        css`
+            font-size: 3rem;
+            font-weight: 600;
+        `}
+	- because it use template literal, we can put javascript code 
+	- put the css keyword before the first backtick to add css styling
+	- try create for h2 and h3, the rest of the code, check the video
