@@ -66,3 +66,16 @@
 7. in AppLayout, create Main styled component, style it (refer github for code) and repace the main element in AppLayout
 8. create StyledAppLayout styled component to replace the div in AppLayout, style it (refer github for code)
 9. add grid-row: 1 / -1 in Sidebar
+
+## 335
+1. in Sidebar, import and put Logo and MainNav components
+2. move the images from data/image folder to public folder so the logo appears
+3. in MainNav, change div to nav
+4. use NavList styled component as the ul for navigation menu and add a few li for the list of menu
+5. in the Link styled component, instead of using 'a' html element, use NavLink as it will prevent page reload upon clicking : styled(NavLink)
+6. change the name from Link to StyledNavLink
+7. in below li, add StyledNavLink styled component for dashboard, bookings, cabins, users and settings
+8. import react-icons and go to react icons page, go to Heroicons 2, search for HiOutlineHome icon for the dashboard
+9. add respective icons for the rest of the menu
+10. in sidebar, in the StyledSidebar styled component, set the display to flex, flex-direction to column and add some gap(3.2rem) so there's some gap between the logo and the navigation menu
+
