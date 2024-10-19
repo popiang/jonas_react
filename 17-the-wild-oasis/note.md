@@ -29,5 +29,23 @@
             font-weight: 600;
         `}
 	- because it use template literal, we can put javascript code 
-	- put the css keyword before the first backtick to add css styling
+	- put the css keyword before the first backtick to add syntax highlighting
 	- try create for h2 and h3, the rest of the code, check the video
+
+## 332
+
+1. create a Row styled components with a div element
+2. display is flex
+3. accept a props called type, horizontal and vertical
+4. the code, check github
+5. set the default props with type vertical, so if this component is used without providing the props, the vertical styles will be used
+6. return default
+7. in App.jsx, use the Row style component, wrap it around the first part with horizontal type and also wrap the second part with vertical type
+8. and then wrap the whole thing with another row with vertical type
+9. time to adjust the Button sytled component
+10. leave Button style only with the basic styles, border, border-radius and box-shadow
+11. accept props.size and props.variation, check the github for code
+12. create default props, variations: primary and size: medium
+13. in App.jsx, for check in button, variation=primary and size=medium
+14. for check out button, variation=secondary and size small
+
