@@ -55,3 +55,14 @@
 3. as usual, BrowserRouter->Routes->Route
 4. create the route for all the pages
 5. bring the GlobalStyles
+
+## 334
+1. create AppLayout component in ui and wrap all routes in App.jsx except login and pagenotfound
+2. create Header and Sidebar components in ui and import them in AppLayout
+3. arrange => Header, Sidebar, and Outlet wrapped in main
+4. time to start styling
+5. in Header, create styled component StyledHeader, style it (refer github for code) and replace the div in Header
+6. in Sidebar, create Styled component StyledSidebar, style it (refer github for code) and replace the div in Sidebar
+7. in AppLayout, create Main styled component, style it (refer github for code) and repace the main element in AppLayout
+8. create StyledAppLayout styled component to replace the div in AppLayout, style it (refer github for code)
+9. add grid-row: 1 / -1 in Sidebar
