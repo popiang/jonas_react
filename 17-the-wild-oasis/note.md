@@ -79,5 +79,21 @@
 9. add respective icons for the rest of the menu
 10. in sidebar, in the StyledSidebar styled component, set the display to flex, flex-direction to column and add some gap(3.2rem) so there's some gap between the logo and the navigation menu
 
-
-
+## section 26 supabase
+1. create account on supabase.com
+2. create a project in supabase
+3. create bookings, cabins, guests and settings table
+4. btw, bookings table has foreign keys
+5. insert some dummy data into the table
+6. add security policy to all the tables, enable read access for all users
+7. then go to APIDocs and choose any table to test, go to read all rows, reveal the apikey, then copy the curl code and test in the terminal
+8. npm install --save @supabase/supabase-js
+9. then in services folder, create supabase.js file, copy paste the code from supabase site to the file 
+10. get the apikey from supabase project settings => api, then put it in the supabase.js file in the code
+11. then export default supabase
+12. then create apiCabins.js file in services folder, create getCabins async function
+13. go to APIDocs => cabins => read all rows, copy the code and paste it in the getCabins function
+14. clean up the code a bit, add checking on error, then if all ok, return the data
+15. try it in Cabins page, useEffect, call getCabins async function, handle the promise with a then, console log the data
+16. in supabase, go to storage and creat 2 buckets, avatars & cabin-images
+17. upload cabin images in the data folder to cabin-images bucket in supabase
