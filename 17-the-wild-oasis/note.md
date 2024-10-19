@@ -49,3 +49,9 @@
 13. in App.jsx, for check in button, variation=primary and size=medium
 14. for check out button, variation=secondary and size small
 
+## 333
+1. time to create the routing
+2. in App.jsx, delete everything, then rfc
+3. as usual, BrowserRouter->Routes->Route
+4. create the route for all the pages
+5. bring the GlobalStyles
