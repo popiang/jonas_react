@@ -79,3 +79,5 @@
 9. add respective icons for the rest of the menu
 10. in sidebar, in the StyledSidebar styled component, set the display to flex, flex-direction to column and add some gap(3.2rem) so there's some gap between the logo and the navigation menu
 
+
+
