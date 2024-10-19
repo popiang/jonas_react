@@ -97,3 +97,14 @@
 15. try it in Cabins page, useEffect, call getCabins async function, handle the promise with a then, console log the data
 16. in supabase, go to storage and creat 2 buckets, avatars & cabin-images
 17. upload cabin images in the data folder to cabin-images bucket in supabase
+
+## 347
+1. npm install @tanstack/react-query@4
+2. in App.jsx, create queryClient = new QueryClient()
+3. set some options, check the code in github
+4. wrap the whole App component with <QueryClientProvider>
+5. set the client to queryClient
+6. npm install @tanstack/reack-query-devtools@4
+7. set as sibling in QueryClientProvider the <ReactQueryDevtools />
+8. set the initialOpen={false}
+
