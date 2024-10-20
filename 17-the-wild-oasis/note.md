@@ -133,3 +133,23 @@
 19. display discount using Discount, use formatCurrency
 20. add another row of data for cabin in supabase
 21. change the staleTime:0
+
+## 350
+1. time to delete
+2. in apiCabins.js, create and export async function deleteCabin that receives an id as a parameter
+3. go to supabase cabin apiDoc, find delete row and copy the code, paste it in the function
+4. as usual, check for error
+5. return the data
+6. in CabinRow.jsx, in the destructure add id: cabinId
+7. to delete, we use useMutation that receive functions for mutationFn and onSuccess
+8. assign to mutationFn the deleteCabin function
+9. onSuccess assign a function to invalidate the query
+10.to invalidate the query, we need queryClient
+11. to get queryClient in CabinRow, we use useQueryClient() and assign it to queryClient const
+12. call queryClient.invalidateQueries and send the queryKey:['cabins']
+13. useMutation return isLoading and a function called mutate
+14. call mutate function in onClick of the delete button and send the cabinId as the parameter
+15. change isLoading: isDeleting in the destructure, and use it in the button for disabled attribute
+16. useMutation also has onError in the parameter, which accept a function, so simply alert the error using alert()
+17. also alert onSuccess
+18. when there's an error, react query will retry automatically
