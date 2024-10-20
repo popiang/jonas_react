@@ -163,3 +163,15 @@
 6. now we improve the layout in the Cabin page a little bit
 7. in AppLayout, create a Container styled component with a div element and style it (refer git for the code)
 8. wrap Outlet with the Container component
+
+## 352
+1. npm install react-hook-form@7
+2. in Cabins.jsx, add showForm state
+3. add Button component Add New Cabin and onClick toggle showForm
+4. showForm && CreateCabinForm
+5. in CreateCabinForm, use useForm(), distructure to register & handleSubmit
+6. in the form, in every Input, add {...register("the Input ID")}
+7. in the Form, in onSubmit call the handleSubmit function from the useForm()
+8. we create another onSubmit function that receives data and we console log it
+9. in the called handleSubmit function, send the onSubmit function that we just created
+
