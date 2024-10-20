@@ -140,6 +140,7 @@
 3. go to supabase cabin apiDoc, find delete row and copy the code, paste it in the function
 4. as usual, check for error
 5. return the data
+===> create new policy for cabin to allow delete to all user
 6. in CabinRow.jsx, in the destructure add id: cabinId
 7. to delete, we use useMutation that receive functions for mutationFn and onSuccess
 8. assign to mutationFn the deleteCabin function
@@ -175,3 +176,15 @@
 8. we create another onSubmit function that receives data and we console log it
 9. in the called handleSubmit function, send the onSubmit function that we just created
 
+## 353
+1. in apiCabin.js create and export async function createCabin that receive newCabin parameter
+2. in supabase apidoc, find insert row, copy the code and paste it into the function
+3. in the insert part, in the array simply put the newCabin
+4. as usual, check for error, and if ok return the data
+5. the go to supabase authenticaion, policies, create policy for cabin to allow access for create and update
+6. in CreateCabinForm, call useMutation again, get the mutate and isLoading
+7. mutationFn: call the createCabin function and send the new cabin
+8. onSuccess: call toast for success message, call queryClient to invalidates queries with queryKey ['cabins'], and then call reset function that we get from destructure of useForm(), btw call useQueryClient to get queryClient
+9. onError: call function to toast an error message
+10. call mutate in onSubmit function
+11. change isLoading to isCreating, and use it in the Button disabled attribute
