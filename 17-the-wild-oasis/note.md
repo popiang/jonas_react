@@ -153,3 +153,13 @@
 16. useMutation also has onError in the parameter, which accept a function, so simply alert the error using alert()
 17. also alert onSuccess
 18. when there's an error, react query will retry automatically
+
+## 351
+1. change the alert to a better notification message
+2. we will use toast
+3. npm install react-hot-toast
+4. configure the Toaster in App.jsx (refer git for code)
+5. in CabinRow.jsx, for error use toast.error() and for success use toast.success()
+6. now we improve the layout in the Cabin page a little bit
+7. in AppLayout, create a Container styled component with a div element and style it (refer git for the code)
+8. wrap Outlet with the Container component
