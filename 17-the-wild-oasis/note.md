@@ -188,3 +188,6 @@
 9. onError: call function to toast an error message
 10. call mutate in onSubmit function
 11. change isLoading to isCreating, and use it in the Button disabled attribute
+
+## 354
+1. fix the AppLayout to make the header and sidebar to fix, in the AppLayout.jsx, in Main styled component, just add overflow:scroll
