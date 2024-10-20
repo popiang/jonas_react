@@ -108,3 +108,28 @@
 7. set as sibling in QueryClientProvider the <ReactQueryDevtools />
 8. set the initialOpen={false}
 
+## 349
+1. clear up Cabins.jsx
+2. in CabinTable.jsx, rfc and return CabinTable
+3. import it in Cabins.jsx, put it in different Row, wrap them in fragment
+4. the TEST change to Filter / Sort
+5. in CabinTable, use useQuery
+   - queryKey: ['cabin']
+   - queryFn: getCabins
+6. assign to a variable, and console log to check
+7. destructure the result of the useQuery to isLoading, data: cabins and error
+8. add checking if isLoading, display Spinner
+9. use styled component Table, wrap TableHeader, set the headers (check github for code)
+10. set the role for Table and TableHeader
+11. loop cabins, for every cabin call CabinRow, send the prop cabin
+12. in CabinRow.jsx, rfc
+13. accept the cabin prop and destructure it to name, maxCapacity, regularPrice, discount and image
+14. use the styled component TableRow, set the role to row
+15. display the image using Img styled component
+16. display cabin name using Cabin
+17. display maxCapacity using just div
+18. display regularPrice using Price, use formatCurrency
+    - npm install date-fns
+19. display discount using Discount, use formatCurrency
+20. add another row of data for cabin in supabase
+21. change the staleTime:0
