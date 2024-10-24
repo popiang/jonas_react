@@ -191,3 +191,22 @@
 
 ## 354
 1. fix the AppLayout to make the header and sidebar to fix, in the AppLayout.jsx, in Main styled component, just add overflow:scroll
+2. in the Input component, in the useForm register function, after the name of the input element, simply add curly braces to add validation
+3. add required: "error message"
+4. can also add validation for min and max, set the value and the error message
+5. we can also add our won custom validation function, for example in the discount input because we need to check that the discount value must be less or equal the Price
+6. to create the custom validation function: 
+validate: *the function*. the function will receive a value, and that value is the value of the discount
+7. but how to get the price? we use getValues from useForm, getValues().regularPrice
+8. refer github for the code
+9. if vaidation return false, instead of calling onSubmit, handleSubmit will call another function call onError
+10. we create the onError function, instead of received form data, it will receive errors from the form
+11. how to get the errors from the form so we can display properly? use formState from useForm, and then destructure to get errors
+12. since we have the errors from the form, we can display it accordingly. after name Input, we do optional chaining to check errors?.name?.message, if available, display the message inside Error component
+13. the form is a bit repeatitive, so we create FormRow component, bring all the styles there, receave label, error and children as parameters
+14. since the name of the component is the same with the Styled FormRow, we need to change the styled component name to StyledFormRow
+15. refer github for the code
+16. we also need to make the htmlFor part to receive dynamic value, because it receive the id of the Input
+17. so since Input is the children, we can do children.props.id
+18. refactor the CreateCabinForm to use the new FormRow
+19. add disabled upon isCreating
