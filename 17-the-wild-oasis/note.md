@@ -210,3 +210,25 @@ validate: *the function*. the function will receive a value, and that value is t
 17. so since Input is the children, we can do children.props.id
 18. refactor the CreateCabinForm to use the new FormRow
 19. add disabled upon isCreating
+
+# 355
+1. in CreateCabinForm, we register the FileInput similar to TextArea
+2. but we don't have to set the type to file, because we can set the attribute in the styled component => styled.input.attrs({styled: "file"})
+3. in onSubmit function, we need to add the image into the data, although the image is already in the data, but it's an a list. so we first spread the data({...data}), then we add image: data.image.at(0) to it => {...data, image: data.image.at(0)}
+4. now in apiCabin.js, we first create the imageName, it must be unique, so we append with Math.random(), then we replace all slashes to empty string(refer code in github)
+5. the we create the imagePath
+   - we import supabaseUrl from supabase.js
+   - then we create the imagePath
+   - `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+6. then add the imagePath in the newCabin when creating the cabin
+   - spread the newCabin, then add the image
+   - { ...newCabin, image: imagePath }
+7. next we upload the image
+   - according to documentation, first we need to add policies for the bucket to allow the upload, do it in the supabase
+   - after that, find the code in the documentation to upload file to the bucket
+   - adjust the code to our case (refer github)
+   - check for error, if got storageError, delete the cabin because we don't want the cabin to be created when there's an error when uploading the image
+   - use the code from deleteCabin function, just adjust the id
+   - console.log the error and then throw new Error()
+8. go ahead and test it
+
