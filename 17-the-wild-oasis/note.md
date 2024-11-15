@@ -267,4 +267,25 @@ validate: *the function*. the function will receive a value, and that value is t
 20. now to choose between createCabin or editCabin in onSubmit function, we use isEditSession value in if else, is true then call editCabin: editCabin({ newCabinData: { ...data, image }, id: editId }), and if false, simple call createCabin
 21. now go ahead and test and see if there's any bug
 
+# 357
+1. some housekeeping, in CabinRow.jsx, display discount if there's any discount, and if there isn't any discount, simply display dash (refer github for code)
+2. create useDeleteCabin.js in cabins folder
+3. bring deleteCabin code from CabinRow into this file
+4. wrap in exported function useDeleteCabin, and bring in all the imports
+5. rename the deleteCabin from apiCabins to deleteCabinApi and rename it also in the useMutation
+6. rename mutate to deleteCabin
+7. return {isDeleting, deleteCabin}
+8. in CabinRow.jsx, in CabinRow component, remove the delete code, import useDeleteCabin and populate isDeleting and deleteCabin
+9. replace mutate with deleteCabin through out the code
+10. test delete
+11. do the same for creating cabin, create useCreateCabin.js in cabins folder, paste the create cabin code, wrap it in exported useCreateCabin function, get all the required imports, remove the reset, return isCreating & createCabin
+12. in CreateCabinForm, remove the create cabin code, import useCreateCabin.js, get the isCreating & createCabin function
+13. since in useCreateCabin we cannot call reset(), in CreateCabinForm, when we call createCabin in onSubmit, set add second parameter, a options object, onSuccess: (data)=>reset()
+14. test it
+15. add the second parameter for editCabin as well
+16. then create the useEditCabin.js, put the code as usual, import in CreateCabinForm, replace the old editCabin code
+17. test it
+18. finally, in CabinTable, cut the useQuery code to get the cabins, create useCabins.js in cabins folder, paste the code in exported useCabins function, add all the required imports, return isLoading & cabins
+19. call useCabins in CabinTable.jsx and get isLoading & cabins, then everything will be back to normal
+20. test it
 
