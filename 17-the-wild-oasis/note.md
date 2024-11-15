@@ -232,3 +232,39 @@ validate: *the function*. the function will receive a value, and that value is t
    - console.log the error and then throw new Error()
 8. go ahead and test it
 
+# 356
+1. in CabinRow.jsx, add an edit button before delete button
+2. create showForm state
+3. set onClick for the button to toggle showForm boolean values
+4. below TableRow, if showForm, display CreateCabinForm
+5. now we need to send the cabin data to CreateCabinForm, simply send as prop as cabinToEdit
+6. then we accept the prop in CreateCabinForm, but set default as empty object
+7. destructure cabinToEdit, get the id as editId and then spread the rest as editValues
+8. create a variable to flag wheather the form is creating new or editing, isEditSession = Boolean(editId)
+9. now we need to send the cabin data to the form, in useForm({}), set the defaultValues: isEditSession ? editValues : {}
+10. use isEditSession flag in the button at the bottom to display either Edit cabin or Create new cabin
+11. now we need to update code in createCabin in apiCabin.js so we will use the same function for both creating and updating
+12. first, in the insert code, appaend .select().single() so the the create code will return data of the created cabin
+13. rename createCabin function in apiCabin.js to createEditCabin
+14. also rename the function calls in CreateCabinForm.jsx
+15. in createEditCabin, also accept 'id' as the second parameter, to diffrentiate between a create and an edit call
+16. use if to check the id, before create the cabin, only create when there's no id settings
+    - refactor a bit, follow the code in github
+17. now to update
+    - make sure the policy for cabin update is already created
+	- go to apiDocs and get the code for update
+	- if id is available, use the update code, almost similar with insert
+18. create a const variable hasImagePath by checking newCabin.image startsWith supabaseUrl
+    - use hasImagePath when defining imagePath, to choose between newCabin.image path for existing image or create the new imagePath when user upload a new image
+19. now in CreateCabinForm, duplicate the useMutation code for the editing
+    - change isLoading to isCreating and isEditing respectively
+	- change mutate to createCabin and editCabin respectively
+	- create a const variable isWorking for isCreating || isEditing and replace isLoading with it through out the code
+	- for editCabin, add the id in the parameter
+	- change the toast.success message respectively
+	- in onSubmit function, create a const variable image, check the data.image typeof, if equal to string then simply populate data.image to image, if not then populate data.image[0]
+	- then replace the image[0] in the createCabin with just this const image variable
+20. now to choose between createCabin or editCabin in onSubmit function, we use isEditSession value in if else, is true then call editCabin: editCabin({ newCabinData: { ...data, image }, id: editId }), and if false, simple call createCabin
+21. now go ahead and test and see if there's any bug
+
+
