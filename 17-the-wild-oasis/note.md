@@ -300,3 +300,16 @@ validate: *the function*. the function will receive a value, and that value is t
    - if hasImagePath has value, in upload image part simply return the data so the whole uploading image part will be skipped
 8. disable the duplicate button using isCreating value 
 9. test it out
+
+# 359
+1. time for the settings page
+2. first, let's create RLS policy to update settings table
+3. then, create useSettings.js hook file in settings folder where we put the query code
+4. create useSettings function and export it, call useQuery which takes queryKey and queryFn, queryKey = ['settings'], queryFn is getSettings function which is already available in apiSettings.js file
+5. useQuery will return isLoading, error and data: settings
+6. return these 3 values
+7. in UpdateSettingsForm, call useSettings() and get isLoading and settings
+8. destructure settings to individual value, minBookingLength, maxBookingLength, maxGuestPerBooking, breakfastPrice
+9. in all fields in the form set the defaultValue respectively
+10. then in Settings.jsx file, use <Row> and place UpdateSettingsForm after the heading
+11. before the component return in UpdateSettingsForm, put an if statement to check isLoading and return Spinner if true
