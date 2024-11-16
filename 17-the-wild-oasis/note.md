@@ -313,3 +313,19 @@ validate: *the function*. the function will receive a value, and that value is t
 9. in all fields in the form set the defaultValue respectively
 10. then in Settings.jsx file, use <Row> and place UpdateSettingsForm after the heading
 11. before the component return in UpdateSettingsForm, put an if statement to check isLoading and return Spinner if true
+
+# 360
+1. let's update the settings
+2. we duplicatethe useEditCabin.js in cabins folder and rename it to useUpdateSetting.js
+3. refactor the code for settings
+4. the mutationFn is the function from apiSettings called updateSetting, but we rename it to updateSettingsApi because we want to call the mutate function as updateSetting
+5. call useUpdateSetting in UpdateSettingsForm.jsx and get the isUpdating and updateSetting function
+6. to update the settings, we'll use onBlur event on inputs
+7. onBlur, call handleUpdate, send e and field name as parameters, example handleUpdate(e, "minBookingLength")
+8. in handleUpdate function, get the sent parameters
+9. get the value for target, const {value} = e.target
+10. if no value, simple return
+11. if there's value, call udpateSetting and send the name of the field to update and the value: updateSetting({[field]: value})
+12. use isUpdating to disbaled input is isUpdating is true
+13. do the same for the rest of the input fields
+14. test it out
