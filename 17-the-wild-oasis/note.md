@@ -289,3 +289,14 @@ validate: *the function*. the function will receive a value, and that value is t
 19. call useCabins in CabinTable.jsx and get isLoading & cabins, then everything will be back to normal
 20. test it
 
+# 358
+1. let's make a button to duplicate a cabin based on the existing on
+2. in CabinRow.jsx, create another button before edit button, for the duplicate
+3. to save space, change the title of the button to icon, HiSquare2Stack for duplicate, HiPencil for edit and HiTrash for delete
+4. then import useCreateCabin() and get the isCreating and createCabin function
+5. create handleDuplicate function and assign to on duplicate button onClick event
+6. in handleDuplicate function, call createCabin function, assign an object of the cabin will all of the properties, except for the name, we append it with `Copy of ${name}`
+7. in apiCabins.js, we make some adjustment
+   - if hasImagePath has value, in upload image part simply return the data so the whole uploading image part will be skipped
+8. disable the duplicate button using isCreating value 
+9. test it out
