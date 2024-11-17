@@ -439,3 +439,7 @@ validate: *the function*. the function will receive a value, and that value is t
 16. since now the ConfirmDelete component is the child component of Modal component, it automatically has the onCloseModal, use it on the onClick of the cancel button 
 17. place the onConfirm prop on the onClick of the delete button
 18. all the functionality should work now
+
+# 371
+1. first, let's fix the bug from previous chapter, add "delete" for open & name in Modal.Open and Modal.Window for the delete button
+2. 
