@@ -329,3 +329,32 @@ validate: *the function*. the function will receive a value, and that value is t
 12. use isUpdating to disbaled input is isUpdating is true
 13. do the same for the rest of the input fields
 14. test it out
+
+# 367
+1. time to create modal for the form to create cabin
+2. Modal is already created by jonas, rfc in the file, accept children prop, and return the components -> Overlay -> StyledModal -> Button, div -> children
+   - for the button, set the icon HiXMark (close button)
+3. in cabins folder, create AddCabin.jsx 
+4. in this file is where we will call the modal
+5. create a state called isOpenModal to control the visibility of the modal
+6. use the Button component for the add cabin button
+7. set the onClick to toggle the isOpenModal value
+8. below the button, if isOpenModal is true, display the Modal
+9. set the children of the Modal the CreateCabinForm component
+10. send a prop call onClose to the Modal and set it to the function call () => setIsOpenModal(false)
+11. accept the onClose prop by the Modal, and set it as a function for onclick event for the close button
+12. also send the same prop to CreateCabinForm: onCloseModal={() => setIsOpenModal(false)}
+13. accept it in CreateCabinForm component, call it in onClick event for the Cancel button, however use optional chaining operator, just in case the CreateCabinForm is called elsewhere where the onCloseModal prop is not provided
+14. also called onCloseModal with the optional chaining operator in onSubmit function on the onSuccess part after reset()
+15. do the same on onSuccess in editCabin
+16. in the CreateCabinForm, now we need to send type prop to the Form, to let it know if the Form is being displayed in a modal or not. by using the onCloseModal prop received by CreateCabinForm, we can tell that
+   - type={onCloseModal ? "modal" : "regular"}
+17. now in Form styled component, jonas already handle the prop, but just make a little adjustment
+   - explicitly compare the type to "regular" instead of !== "modal"
+   - set the Form.defaultProps type to "regular"
+18. test it out
+19. now we want to use createPortal in the Modal
+   - in Modal component function, return createPortal(xxx, document.body)
+   - what will happen is, when check in browser inpect, the modal is now directly in the html body element
+   - but in react tree, it still remain the same
+   - the reason using portal is reusibility, to avoid ccs conflict if for example the Modal component is used by other developer in other places that can cause css conflict
