@@ -416,3 +416,26 @@ validate: *the function*. the function will receive a value, and that value is t
 14. return the ref
 15. in Modal, delete the old code, call the useOutsideClick, send the argument close function, receive ref from the call
 16. now the function should work again 
+
+# 370
+1. first, let's clean up previous files that we worked with
+2. remove the modal for the table, coz it was only for demo purpose
+3. then wrap the remaining modal in AddCabin with a div so the button doesn't occupy the whole width
+4. now, let's use modal window for editing and deleting cabin
+5. in CabinRow.jsx, wrap both edit and delete button with Modal
+6. then let's add the child components
+7. wrap the first button with Modal.Open
+8. as we did previously, after Modal.Open, we place Modal.Window
+9. set "edit" for open and name props for Modal.Open & Modal.Window
+10. in Modal.Window, we place the component that we want to display in the modal, that is CreateCabinForm
+   - clean the remaining code
+   - remove the onClick handler in the edit button
+11. test it out
+12. then we do the same for delete button, we wrap the button in Modal.Open
+13. then we create Modal.Window below it and we add ConfirmDelete component which is already provided by Jonas
+14. provide the value for all the props for ConfirmDelete, resourceName="cabins", disabled={isDeleting}, onConfirm{() => deleteCabin(cabinId)}
+   - again, clean the remaining code
+15. now go to ConfirmDelete.jsx to make all the buttons work
+16. since now the ConfirmDelete component is the child component of Modal component, it automatically has the onCloseModal, use it on the onClick of the cancel button 
+17. place the onConfirm prop on the onClick of the delete button
+18. all the functionality should work now
