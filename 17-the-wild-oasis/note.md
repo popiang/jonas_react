@@ -393,3 +393,26 @@ validate: *the function*. the function will receive a value, and that value is t
 13. try it out
 14. now let's activate the second modal in the Modal component, set the open and name to "table", the button title to Show table, and the children for modal.window is CabinTable
 15. try it out
+
+# 369
+1. now we want to detect a click outside the modal to close to modal
+2. in Modal.jsx, in Window component function, define ref = useRef();
+3. use ref={ref} in StyledModal the get the reference of the modal
+4. add useEffect
+   - create handleClick function
+   - accept e
+   - check if ref.current -> modal is exist and check !ref.current.contains(e.target) -> checking if the click (in e.target) is outside of the modal(ref.current)
+   - if true, call close();
+5. add the click event listener to the document, send the handleclick function, and also the true value
+6. add the cleanup function code at the end of the useEffect
+   - return () => document.removeEventListener('click', handleClick)
+7. test it out
+8. now let's move this functionality to a function hook
+9. in hooks folder, create a file useOutsideClick.js
+10. create and export function useOutsideClick
+11. bring all the code from Modal to here, manage the imports
+12. this function must accept 2 parameters, handler and listenCapturing which is by default is true
+13. replace the close function to handler function, and replace the true value in the event listener to listenCapturing
+14. return the ref
+15. in Modal, delete the old code, call the useOutsideClick, send the argument close function, receive ref from the call
+16. now the function should work again 
