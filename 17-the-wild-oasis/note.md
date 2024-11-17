@@ -358,3 +358,38 @@ validate: *the function*. the function will receive a value, and that value is t
    - what will happen is, when check in browser inpect, the modal is now directly in the html body element
    - but in react tree, it still remain the same
    - the reason using portal is reusibility, to avoid ccs conflict if for example the Modal component is used by other developer in other places that can cause css conflict
+
+# 368
+1. let's change the modal to use Compound component
+2. the idea is, the component using the Modal should not be held responsible to create the state to control weather the Modal should be displayed or not, the Modal itself must know and handle it
+3. first comment out the existing code in AddCabin for future reference
+4. then create a new AddCabin -> refer github for the code
+5. in the Modal.Open, we send a prop open and set it to the name of modal window that we want to open, it this case is open="cabin-form"
+6. this is because technically we want to allow multiple Modal windows can be sent to the Modal component
+7. the Modal.Window also accept a prop called name which in this case is name="cabin-form", so it knows which modal to open
+8. basically, model.open part is for the button, and model.window part is for the actually modal to display
+9. in Modal.jsx, we follow the standard steps. first we create the content, ModalContext
+10. then we create the parent component, which is the Modal function component
+   - it accepts children as props
+   - create a state openName set default as empty string, this is the name of the modal to be opened
+   - create the function close : simply set function call to setOpenName(""), this is to close the modal, by setting the name of modal to open to empty string
+   - the create the function opebn : simply set it to the setOpenName state function
+   - return the ModalContext.Provider with values = openName, close, open, and also pass the children
+11. then create the child components, first the function Open
+   - accept props children and open (this is not a function, but actually the name of the modal to be opened), no idea why it's called open, thus it is rename to openWindowName
+   - useContext the ModalContext and get the function open
+   - return a cloneElement(children, {onClick: () => open(openWindowName)})
+   - this is because we can't send the open function from the context to the Button sent as children to Modal.Open
+   - so we use cloneElement, clone the children which in this case happen to be the Button component
+   - then we set the onClick, as shown in the code
+   - onClick: () => open(openWindowName)
+   - cloneElement must be used with care
+12. then create the second child component, the function Window component
+   - accepts the props children & name
+   - name is the name of the modal to display
+   - useContext the ModalContext and get openName and close
+   - now check if name from the props and openName from the context are the same, if they are not, simply return null, meaning do nothing
+   - if they are, return the createProtal
+13. try it out
+14. now let's activate the second modal in the Modal component, set the open and name to "table", the button title to Show table, and the children for modal.window is CabinTable
+15. try it out
