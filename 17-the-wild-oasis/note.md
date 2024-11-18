@@ -469,3 +469,14 @@ validate: *the function*. the function will receive a value, and that value is t
 5. first check, if there's no data, simply return Empty component with simple message
 6. then return StyledBody, wrapping the data.map(render)
 7. it should work now
+
+# 373
+1. in Menus.jsx, rfc
+2. we need to wrap the whole table so Menus can know which context menu is opened at a time
+3. go to CabinTable and wrap Table with Menus
+4. now in CabinRow.jsx, we create the menu
+   - below modal, we create Menus.Menu
+   - it contains Menus.Toggle
+   - then it also contains Menu.List
+     - this contains Menu.Button for duplicate, edit and delete
+   - we give id={cabinId} for Toggle and List to connect them
