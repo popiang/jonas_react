@@ -442,4 +442,21 @@ validate: *the function*. the function will receive a value, and that value is t
 
 # 371
 1. first, let's fix the bug from previous chapter, add "delete" for open & name in Modal.Open and Modal.Window for the delete button
-2. 
+2. in Table.jsx, create Table component function and then export default it
+3. in CabinTable.jsx, delete the Table styled component, and at the bottom link the Table to the Table component we just created above
+4. we can also remove the role in the Table
+5. then send a prop into the Table called columns and place the grid-template-columns value into it
+6. change the table header to Table.Header
+7. now in CabinRow.jsx, change the TableRow to Table.Row, and we can comment out the TableRow styled component
+8. in Table, as usual, we create TableContext using createContext
+9. the parent component is the Table
+   - accept props, columns and children
+   - return the context provider, with value = columns
+   - wrap the StyledTable with role=table
+   - the StyledTable wrap the children
+10. create the children component
+11. first, the Header, accept children, get the columns from TableContext and return StyledHeader with props role=row, columns=columns and also set as=header so it will be header html element, symantically more correct, and wrap the children
+12. second, the Row, accept children, get the columns from TableContext and return StyledRow, with role=row, columns=columns and wrap the children
+13. then the body
+14. then assign the children to the parent
+15. the cabin table should already work by now
