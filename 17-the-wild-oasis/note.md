@@ -460,3 +460,12 @@ validate: *the function*. the function will receive a value, and that value is t
 13. then the body
 14. then assign the children to the parent
 15. the cabin table should already work by now
+
+# 372
+1. for Table.Body, in CabinTable, we use self closing <Table.Body />
+2. we send the data={cabins}
+3. then we send the render the function to display the cabin (refer the code in github)
+4. in Table, in Table.Body, we accept data and render
+5. first check, if there's no data, simply return Empty component with simple message
+6. then return StyledBody, wrapping the data.map(render)
+7. it should work now
