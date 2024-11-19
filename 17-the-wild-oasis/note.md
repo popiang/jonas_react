@@ -480,3 +480,53 @@ validate: *the function*. the function will receive a value, and that value is t
    - then it also contains Menu.List
      - this contains Menu.Button for duplicate, edit and delete
    - we give id={cabinId} for Toggle and List to connect them
+5. in Menus.jsx, change the styled component StyledMenu to just Menu
+6. now we create the children function components, Toggle({id}), List({id}) and Button({children})
+7. add the children component to the parent component
+8. new we creathe MenusContext using createContext
+9. in the parent component, create openId state to keep track the menu to open
+10. create close function to set the openId to empty string
+11. create open function and just assign the setOpenId
+12. now in Button function, return li element wrapping StyledButton component which wraps the children
+13. for the Toggle component, get openId, close and open from MenusContext
+14. return StyledToggle, wrapping HiEllipsisVertical icon
+15. StyledToggle onclick is assigned with handleClick function
+16. create the handleClick function:
+	=> openId === '' || openId !== id ? open(id) : close()
+17. for the List component, it will also accept children props
+18. get the openId from MenusContext
+19. if openIf !== id, return null
+20. return createPortal
+    - first argument for createPortal is StyledList wrapping children
+	- StyledList accepts props position={{x:20, y:20}}
+	- second argument is document.body
+21. can test it, the context menu should at least appear now
+22. now we want to calculate the location to put the context menu based on the click
+23. in handleClick, we accept the e to get the size and position of the button
+    - e.target.closes("button").getBoudingClientRect();
+24. but we need to send the position to List component, so we lift the state up and create it in the parent component Menus
+    - const [position, setPosition] = useState(null);
+25. now we send position and setPosition to the Provider value
+26. in Toggle component, accept setPosition from MenusContext and in handleClick function, set the position: 
+    - setPosition({ x: window.innerWidth - rect.width - rect.x,
+            y: rect.y + rect.height + 8})
+	- the calculation has already been made by Jonas, but please try to understand it
+27. in List component, accept position from MenusContext and set it to the position in the StyledList component
+28. try it out now
+29. now in CabinRow.jsx, send icon to the 3 buttons in Menus.List
+    - eg: icon={<HiSquare2Stack />}
+30. for duplicate button, we also send the handleDuplicate to the onClick
+31. in Menus.jsx, in Button component, we accept icon and onClick
+32. we get close function from MenusContext
+33. then create handleClick function the call onClick conditionally, and after that call the close function
+    - onClick?.();
+34. in StyledButton, we wrap the children with span, and then put the icon before the span
+35. then we set the onClick of the StyledButton with the handleClick function that we create above 
+36. now we want to make that when user click outside of the context menu, it will close
+37. we will use the useOutsideClick hook
+38. call it in List component, set the close function as the argument, don't forget to get the close function from MenusContext, then assign the result of useOutsideClick to const ref
+39. set the ref to StyledList component, ref={ref}
+40. now it's time to make the edit and delete menu in the context menu works
+41. first we delete the old duplicate button
+42. then we merge the code from modal and list together, please refer github code because it's really confusing
+43. finally it's completed, try it out
