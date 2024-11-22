@@ -568,3 +568,31 @@ validate: *the function*. the function will receive a value, and that value is t
 31. first we need to get the current selected filter by using searchParams.get(filterField) || options.at(0).value, we append the safe guard in case to button is clicked yet
 32. then in FilterButton, we add props active={currentFilter === option.value}, it will result to true when the option.value equals to the current selected button
 33. test it out
+
+# 376
+1. first, in Filter.jsx, in FilterButton, we forgot to add disabled prop. so add it: disabled={currentFilter === option.value}, so now if the button is currently selected, we can't click it anymore
+2. now, first we create SortBy.jsx file in ui because we want it to be reusable
+3. rfc, then it should receive options as props, and return Select component which already created by jonas in ui folder, send the options value as props to the Select component
+4. in Select.jsx, rfc at the bottom, it receives options and value as props
+5. return StyleSelect styled component provided by jonas at the top of the page
+6. it should receive value as props
+7. it wraps options.map which return option html element, with option.value as value, option.label as label and option.value as the key
+8. now we use the SortBy component in CabinTableOperations, put it after Filter component
+9. we need to send options into this SortBy, refer github for code coz it's a bit lengthy
+10. the select element should now be visible 
+11. now we want to send type props to Select component because it's child component StyledSelect can receive type props to change some styling on the dropdown
+12. new trick, if we have multiple props that we receive as parameters, and we want to pass it to the child component, we can do ...props, and then in the child component we simple send {...props}
+13. this way, we don't have to explicitly assign the props to any variable
+14. do the above in Select component
+15. in SortBy.jsx, we send type="white" props in Select component
+16. next we need to handle the onChange event on the select, so in SortBy, we create a function handleChange, we assign it to onChange as props in Select component
+17. then in Select.jsx, we receive onChange as parameters, then send it to onChange event in the StyledSelect component
+18. this way, we are making the Select component 100% reusable
+19. next, in SortBy component, we use useSearchParams and get searchParams and setSearchParams
+20. in handleChange function, set searchParamas.set("sortBy", e.target.value)
+    - e.target.value is the value of the dropdown select
+21. then call setSearchParams(searchParams)
+22. try it out now and see the changes in the URL
+23. now we get the current sortBy = searchParams.get("sortBy") || "", assign it as value props on Select component
+24. this will retain selected sortBy in the dropdown even if we refresh the page
+
