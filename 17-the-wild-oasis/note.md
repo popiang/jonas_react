@@ -530,3 +530,41 @@ validate: *the function*. the function will receive a value, and that value is t
 41. first we delete the old duplicate button
 42. then we merge the code from modal and list together, please refer github code because it's really confusing
 43. finally it's completed, try it out
+
+# 375
+1. in this chapter, we will add filter buttons on the cabins table
+2. first we create CabinTableOperations.jsx in cabins folder
+3. here is where we'll place filter and sorting functionality/interactions
+4. rfc in the page, then return TableOperations which already provided by jonas, wrapping Filter component which is also provided by Jonas
+5. now in Filter component, rfc to return the component
+6. return StyledFilter which already created by Jonas at the top, wrapping three FilterButton styled components for All, No Discount and With Discount
+7. now bring CabinTableOperations into Cabins.jsx under the Heading
+8. it should now be already visible
+9. when we press the button, we want to update the URL state, so the updated URL is sharebale and bookmarkable, and also to make the table and filter components indipendent of each other
+10. in Filter.jsx, we first create handleClick function to handle clicks from the 3 buttons
+11. the function will receive  value upon clicking, which is "all", "no-discount" and "with-discount"
+12. assign the funtion to onClick of all 3 buttons
+13. then bring in useSearchParams(), which will return searchParams, setSearchParams
+14. in the function, assign the params : searchParams.set("discount", value)
+15. then set the params: setSearchParams(searchParams);
+16. try clicking the buttons and the params should be available in the URL
+17. next step is to read the state from URL in CabinTable.jsx
+18. we use the useSearchParams hook, get the searchParams, and the get the filter: searchParams.get("discount")
+19. we append the statement with || "all", because if the go to the page for the first time, the value will become null, when logically we want the value to be "all" so the table will display call cabins
+20. next we create a let variable filteredCabins to hold the cabins that have been filteredCabins
+21. simply use if statement to check the filterValue
+    - all: simply assign the cabins
+	- no-discount: cabins.filter(cabin=>cabin.discount===0)
+	- with-discount: cabins.filter(cabin=>cabin.discount>0)
+22. try it out, the filter should work now
+23. now we want to make the Filter reusable
+24. the Filter component should accept 2 props, filterField and options
+25. set the searchParams.set(filterField, value)
+26. in StyledFilter component, map the options and in each iteration display the FilterButton with handleClick argument set to option.value and the label of the button set to option.label
+27. don't forget to set the key for the FilterButton
+28. try it out, it should work now
+29. now to finish, we also want to display with of the option being selected
+30. we simply need to send the action prop to FilterButton because FilterButton styled component already has a logic to handle the active prop
+31. first we need to get the current selected filter by using searchParams.get(filterField) || options.at(0).value, we append the safe guard in case to button is clicked yet
+32. then in FilterButton, we add props active={currentFilter === option.value}, it will result to true when the option.value equals to the current selected button
+33. test it out
