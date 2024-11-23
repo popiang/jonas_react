@@ -595,4 +595,11 @@ validate: *the function*. the function will receive a value, and that value is t
 22. try it out now and see the changes in the URL
 23. now we get the current sortBy = searchParams.get("sortBy") || "", assign it as value props on Select component
 24. this will retain selected sortBy in the dropdown even if we refresh the page
+25. now to make the sorting works, in CabinRow.jsx, get the sortBy value using searchParams.get("sortBy") || "startDate-asc"
+26. split sortBy by "-", and store in field and direction const variable
+27. set the modifier by checking the direction, if asc then 1, if desc then -1
+28. the we use the filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier)
+    - we used field as then index in the sort because we have multiple sort type
+	- we times the modifier because to make the sort ascending, the result of the substraction must be positive number, and to make it descending the result of the subtraction must be negative number. that's why we set the modifier 1 or -1 based on the direction asc or desc
+29. the sorting should work by now, test it out
 
