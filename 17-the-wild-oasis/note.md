@@ -628,3 +628,14 @@ validate: *the function*. the function will receive a value, and that value is t
 20. we can also do the same for bookings table, so the final select: select("id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)")
 21. activate back the Table.Body part and the bookings table should be displayed accordingly now
 22. please study the code in BookingRow.jsx to understand how and why the table is displayed the way it is displayed
+
+# 378
+1. in this chapter, we simply gonna upload dummy data provided by jonas
+2. the data is in data folder in three files, bookings, cabins and guests
+3. there also a Uploader.jsx component file where the button to upload is placed
+4. we simply need to bring the Uploader component to the Sidebar.jsx, put it below MainNav
+5. now, the upload button should be visible in the sidebar
+6. but before we can upload, we need to create policies for bookings and guests table
+7. once done, then click Upload All
+8. now the data should be visible in bookings table and cabins table
+
