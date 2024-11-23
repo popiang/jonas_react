@@ -639,3 +639,31 @@ validate: *the function*. the function will receive a value, and that value is t
 7. once done, then click Upload All
 8. now the data should be visible in bookings table and cabins table
 
+# 379
+1. time to add filtering into bookings table
+2. jonas already created BookingTableOperations.jsx component, similar concept with CabinTableOperations, with the Filter and SortBy components already in place
+3. simply add it to Bookings component under the Heading
+4. by now if we click the filter buttons, the URL should be changed accordingly
+5. in Bookings filter, we will implement the logic differently compared to the one in Cabins filter, where this time the filteration will happen in the server. for Cabins, we get all the data from server, then we filter it before displaying it in the table
+6. the best to do it is in the useBookings.js file because we can call useSearchParams
+7. get searchParams, get("status"), store in filterValue
+8. check if there's no filterValue or if filterValue is "all", if yes return null
+9. if not, create an object {field: "status", value: filterValue} and assign it to filter
+10. send this filter value to getBookings in queryFn
+    - queryFn: () => getBookings({filter})
+11. in apiBookings.js, in getBookings function, accept filter and sortBy parameters
+12. amend the code: let query = supabase.from("bookings").....
+13. then check if filter is not null, add the filter to the query
+    - query.eq(filter.field, filter.value)
+14. then: const {data, error} = await query
+15. then in useBookings.js, in queryKey of the useQuery, we add filter after "bookings"
+    - it works the same way like dependency array in useEffect, meaning if the filter value is changed, the useQuery will run again to fetch the data
+	- so when we click different button, the filter changes, the useQuery will run again
+16. try it out, it should work now
+17. here, the react query will store the queried data into cache. so for example, if we have click the button checked-out, the data is retrieved, displayed and also stored in the cache, then we click the button Checked-in, the same thing happens, then if click back to button checked-out, the data will be retrieved from the cache
+18. this improve user experience due to data will be displayed almost instantly
+19. to make the getBookings function more dynamic, we can also send the method of the filter, for example either eq, gt, gte, lt, lte
+20. in useBookings, in the filter object, we add the third entry, method: "eq"
+21. in apiBookings, getBookings function, in the query, change the "eq" to [filter.method || "eq"]
+22. this way, it has become more dynamic
+23. the table filter still work as before
