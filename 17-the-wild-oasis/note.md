@@ -603,3 +603,28 @@ validate: *the function*. the function will receive a value, and that value is t
 	- we times the modifier because to make the sort ascending, the result of the substraction must be positive number, and to make it descending the result of the subtraction must be negative number. that's why we set the modifier 1 or -1 based on the direction asc or desc
 29. the sorting should work by now, test it out
 
+# 377
+1. let's bring booking data to the application
+2. in supabase, create a second guest, and then create another booking using the second guest
+3. now, lets create getBookings in apiBookings.js to get all the bookings
+   - write the query yourself
+4. jonas already provided BookingTable.jsx in bookings folder, add it into Bookings.jsx, put it below the Row, wrap the with fragment <>
+5. in the BookingTable component, if bookings is empty return the Empty component provided by jonas with resourceName set to "bookings"
+   - change the Empty component a bit, change resource to resourceName
+6. do the same in CabinTable, if cabins is empty return Empty component with resourceName set to "cabins"
+7. now we need to connect the BookingTable with the bookings api
+8. we will use react query
+9. in bookings table, create useBookings.js
+10. create useBookings function, export it
+11. call useQuery, send an object with queryKey: ["bookings"], queryFn: getBookings
+12. it will retuern {isLoading, data: bookings, error}
+13. then return the {isLoading, error, bookings}
+14. now in BookingTable, call useBookings and get bookings, isLoading
+15. below it, if isLoading, return the Spinner
+16. in the bookings table, we don't only want to get bookings data, but also the cabin and the guest related to the bookings
+17. so in apiBookings.js, in getBookings, in the select() we add ("*, cabins(*), guests(*)")
+18. but this will query the whole row of data for cabins and guests, when only need a few
+19. so we adjust it: ("*, cabins(name), guests(fullName, email)")
+20. we can also do the same for bookings table, so the final select: select("id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)")
+21. activate back the Table.Body part and the bookings table should be displayed accordingly now
+22. please study the code in BookingRow.jsx to understand how and why the table is displayed the way it is displayed
