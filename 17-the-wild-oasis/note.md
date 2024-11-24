@@ -751,3 +751,19 @@ validate: *the function*. the function will receive a value, and that value is t
 	- const to = from + PAGE_SIZE - 1;
 23. the pagination should work now, give it a try
 24. react query cache also kicks in
+
+# 383
+1. we want to implement prefeting of react query to improve user experience
+2. if user is in page 1 of the pagination, react query will automatically fetch page 2, so when user click pagination to page 2, the result will appear immediately without experiancing loading time
+3. first, in useBookings.js, we import queryClient hook
+4. then after pagination part, we first get the pageCount
+   - pageCount = Math.ceil(count / PAGE_SIZE);
+5. the we check if page < pageCount, we call queryClient hook
+   - the if is to make sure the prefetch is not happening when the last page has already been prefetched
+6. queryClient.prefetchQuery({})
+7. inside the object option, we add the same code with the useQuery, except that the page + 1
+8. try it out, it should work already, click the react flower to see it
+9. to do the other way around, copy paste the whole code
+10. change the if to page > 1, to make sure prefetch is not happening for page 0
+11. change page + 1 to page - 1
+12. it should work now
