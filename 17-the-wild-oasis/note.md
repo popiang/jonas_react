@@ -682,3 +682,38 @@ validate: *the function*. the function will receive a value, and that value is t
 10. the sort should work right now
 12. react query cache will also kick in for both filter and sort
 
+# 381
+1. time to add pagination to the bookings table
+2. jonas already provided a Pagination component
+3. rfc in the component
+4. return StyledPagination component provided by jonas, wrapping P component and Buttons component, both also provided by jonas
+5. pagination receive a prop count, representing the total number of records to display
+6. the idea is to send the parameters for pagination in the URL
+7. so call useSearchParams to get searchParams and setSearchParams
+8. check if page is not available in the url (!searchParams.get("page")), if it is not, assign 1 to currentPage, if available, get the "page" value and change it to type number using Number javascript function, then assign it to currentPage
+9. then get the pageCount by using this formula:
+   - pageCount = Math.ceil(count / PAGE_SIZE)
+   - PAGE_SIZE is a const variable that we set at the moment to 10
+10. in P component, we set the string to display:
+    - Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+                <span>10</span> of <span>{count}</span> results
+11. in Buttons component, we call PaginationButton component provided by jonas, 2 times, one for previous button, and one for next button
+12. the first one, we call HiChevronLeft icon, after that a span wrapping the word Previous
+13. the second one, we call HiChevronRight icon, after that a span wrapping the word Next
+14. then we create 2 funcions, nextPage() and prevPage(), assign it to onClick of respection Pagination button
+15. in nextPage(), we get the next page number like this:
+    - next = currentPage === pageCount ? currentPage : currentPage + 1
+	- it means, if the currentPage is already the same with the pageCount, meaning the currentPage is already at the last page, then the next remain the same page number
+	- but if it is not, the next page number will get currentPage + 1, hence the next page
+16. in prev(), we get the prev page number like this:
+    - prev = currentPage === 1 ? currentPage : currentPage - 1
+	- it means, if the currentPage is 1, it means this is the first page, so we cannot got lower any further, so it next page number remain no 1
+	- if not, the prev page will be currentPage - 1
+17. in prev PaginationButton, we set it to disabled when the currentPage === 1
+18. in next PaginationButton, we set it to disabled when the currentPage === pageCount
+19. now in BookingTable, we will use Table.Footer component for the pagination
+20. below Table.Body, put the Table.Footer component, wrapping the Pagination component
+21. sent the dummy data count={15} as the prop to Pagination
+22. 
+23. now if we try the buttons, it should be reflected in the URL
+24. update the P component, change the 10 to {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
