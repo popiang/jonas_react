@@ -798,3 +798,46 @@ validate: *the function*. the function will receive a value, and that value is t
 26. the status is automatically used by the provided code
 27. activate the BookingDataBox which accept the booking as a prop
 28. now the booking detail page should already work
+
+# 385
+1. in this chapter we want to handle check in
+2. first in BookingRow we add the button
+   - after See details button, we add similiar button, copy paste
+   - ichon HiArrowDownOnSquare
+   - navigate to /checkin/${bookingId}
+   - label "Check in"
+3. now the menu should already be available
+4. next we create Checkin.jsx page in pages, rfc, and return CheckinBooking component which already provided by jonas
+   - comment out the BookingDataBox part as booking data not available yet
+5. then in App.jsx, we add the routing for checkin
+   - path booking/:bookingId
+   - element Checkin 
+6. now in CheckingBooking.jsx, we bring in the booking and isLoading using useBooking()
+7. then we check, if isLoading is true, return the Spinner
+8. now we can comment in the BookingDataBox coz the booking is now available
+9. the checkin page should be visible now
+10. the idea is, payment is received externally. the staff has to do the confirmation that the payment has been received in the system
+11. first we use a Box component which is available in the same file
+12. Box will wrap a Checkbox, which also has been provided by jonas in ui folder
+13. to track the confirmation, we will use state, confirmPaid, setConfirmPaid
+13. in the CheckBox, set the value={confirmPaid}, set the onChange to () => setConfirmPaid(!confirm), and id="confirm", and the label to I confirm the {guests.fullName} has paid the total amount
+14. now the checkbox should be visible in the page
+15. the confirmPaid is set false initially
+16. then we use useEffect to set the confirmPaid based on the booking.isPaid
+    - setConfirmPaid(booking?.isPaid ?? false)
+17. then we set the Checkbox disabled attribute disabled={confirmPaid}
+18. so if it is already paid, we cannot uncheck the checkbox
+19. do the same on the checkin Button, disabled={!confirmPaid},
+it's the reverse, the button can only be click when it is not paid yet
+20. we need to fix a bug, in useBooking, we need to add bookingId in the queryKey
+21. next, we will do the actual checkin, which technically will update the bookings table, setting the status to "checked-in" and isPaid to true
+22. in check-in-out folder, we create useCheckin.js hook file
+23. create and export useCheckin function
+    - call useMutation which return mutate: checkin, and isLoading: isCheckingIn
+	- send object option of mutationFn, onSuccess and onError (refer github for the code)
+	- return checkin function and isCheckingIn
+24. call useCheckin in CheckinBooking.jsx after moveBack declaration, get the checkin and isCheckingIn
+25. in handleCheckin function, first check if !confirmPaid, simply return 
+26. else, call checkin function and send in the bookindId as argument
+27. use isCheckingIn in disabled attribute for Checkbox and check in Button
+28. everything should be good and ready now, give it a test
