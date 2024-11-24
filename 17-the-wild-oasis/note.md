@@ -667,3 +667,18 @@ validate: *the function*. the function will receive a value, and that value is t
 21. in apiBookings, getBookings function, in the query, change the "eq" to [filter.method || "eq"]
 22. this way, it has become more dynamic
 23. the table filter still work as before
+
+# 380
+1. let's make the sorting function for bookings to work
+2. in useBookings.js, we get the sortBy params using searchParams or set the default value to "startDate-asc"
+3. assign it to a const variable called sortByRaw
+4. then we split it by "-", assign it to : const [field, direction]
+5. create an object with this value and assign it to sortBy
+6. put sortBy in the queryFn and also in the queryKey
+7. then in apiBookings, we accept the sortBy parameter in getBookings function
+8. after the filter part, we check if the sortBy exist
+9. if it does, then add the order to the query
+   - query = query.order(sortBy.field, {ascending: sortBy.direction === "asc"})
+10. the sort should work right now
+12. react query cache will also kick in for both filter and sort
+
