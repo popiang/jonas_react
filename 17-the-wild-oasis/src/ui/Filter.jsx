@@ -29,7 +29,7 @@ const FilterButton = styled.button`
     padding: 0.44rem 0.8rem;
     transition: all 0.3s;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled) { 
         background-color: var(--color-brand-600);
         color: var(--color-brand-50);
     }
@@ -41,6 +41,12 @@ function Filter({ filterField, options }) {
 
     function handleClick(value) {
         searchParams.set(filterField, value);
+
+		// reset the page
+		if (searchParams.get("page")) {
+			searchParams.set("page", 1);
+		}
+
         setSearchParams(searchParams);
     }
 

@@ -872,3 +872,26 @@ it's the reverse, the button can only be click when it is not paid yet
 9. in useCheckin, we change the parameter of mutationFn to an object {bookingId, breakfast}, where breakfast is an object
 10. in the updateBooking, after isPaid:true, we simple spread the breakfast object, ...breakfast, so all the fields to be updated will be sent to updateBooking function
 11. the whole things should work now, give it a try
+
+# 387
+1. time to implement checking out functionality
+2. copy paste useCheckin hook in check-in-out folder
+3. change checkin to checkout through out the code, only need to send bookingId to mutationFn, and only need to update status: "checked-out"
+4. in BookingRow.jsx, simply copy paste the checkin Menus.Button including the status checking
+5. only display when status === checked-in
+6. bring in the useCheckout() and the checkout function and isCheckingOut
+7. in the Menus.Button, on the onClick just send the checkout function with bookingId
+8. set disabled to isCheckingOut
+9. change label to Check out
+10. it should already work now, give it a try
+11. remove the navigate to dashboard code because it's not really relevant
+12. again, copy the whole button code, paste it in BookingDetails.jsx after checkin button
+13. change Menus.Button to only Button
+14. bring in all the necessary imports
+15. try it out
+16. let's fix a bug, where when we are at the page = 3, then we click a filter for example unconfirmed, an error occured because there are no 3 pages of unconfirmed data
+17. the fix is, when we click any filter, we need to set the page to 1
+18. in Filter.jsx, in the handleClick, after the first searchParams.set, 
+check if searchParams.get("page") exist, and if it does, set it to 1, searchParams.set("page", 1)
+19. the issue should be resolved now
+
