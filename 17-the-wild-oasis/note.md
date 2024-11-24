@@ -841,3 +841,34 @@ it's the reverse, the button can only be click when it is not paid yet
 26. else, call checkin function and send in the bookindId as argument
 27. use isCheckingIn in disabled attribute for Checkbox and check in Button
 28. everything should be good and ready now, give it a test
+
+# 386
+1. in this chapter we want to add the optional breakfast checkbox and it's functionality
+2. in CheckinBooking.jsx, first we add addBreakfast state to track the checkbox
+3. then we call useSettings hook to get settings data
+   - settings, isLoading: isLoadingSettings
+4. we calculate the breakfast price:
+   optionalBreakfastPrice = settings.breakfastPrice * numNights * numGuests
+5. then before confirm paid checkbox, we add another Box component, wrapping Checkbox component with props:
+   - checked={addBreakFast}
+   - onChange={() => {
+		setAddBreakfast((add) => !add);
+        setConfirmPaid(false);
+   	}}
+   - id="breakfast
+   - the setConfirmPaid(false) is because, if we add breakfast, there is additional payment to be made, so if originally user has paid for the booking, but when add breakfast, there's additional payment, so the checkbox for payment is got unchecked
+6. for the Checkbox label, a bit lengthy, check github code
+7. in handleCheckin function, we check, if there's addBreakfast, we send an object:
+   {
+	bookindId,
+	breakfast: {
+		hasBreakfast: true,
+        extrasPrice: optionalBreakfastPrice,
+    	totalPrice: totalPrice + optionalBreakfastPrice,
+	}
+   }
+8. if there's no addBreakfast, simple send:
+	{bookingId, breakfast: {}}
+9. in useCheckin, we change the parameter of mutationFn to an object {bookingId, breakfast}, where breakfast is an object
+10. in the updateBooking, after isPaid:true, we simple spread the breakfast object, ...breakfast, so all the fields to be updated will be sent to updateBooking function
+11. the whole things should work now, give it a try
