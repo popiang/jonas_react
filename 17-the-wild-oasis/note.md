@@ -767,3 +767,34 @@ validate: *the function*. the function will receive a value, and that value is t
 10. change the if to page > 1, to make sure prefetch is not happening for page 0
 11. change page + 1 to page - 1
 12. it should work now
+
+# 384
+1. now we want to add a context menu on the bookings table, and one of the menu is to see the details of the booking
+2. since bookings table is wrapped with Menus, we can use Menus children component to build the menu
+3. Menus wrapped Table -> Table wrapped Table.Body -> Table.Body wrapped BookingRow, and in BookingRow is where we'll and the Menus children component
+4. in BookingRow.jsx, after Amount column, we add Menus children component
+5. Menus.Menu -> Menus.Toggle, Menus.List -> Menus.Button
+6. in Toggle and List we add id={bookingId} to link both of them together
+7. in Menus.Button send props: icon={<HiEye />} and also onClick
+8. when we click the menu, we want to navigate to booking details page, which we haven't created yet
+9. in BookingRow, call useNavigate() and get navigate
+10. at the onClick of the button, we set () => navigate(`/bookings/${bookingId}`)
+11. the Menus.Button simply wrap a text "See details"
+12. now we create a Booking.jsx file in pages folder, rfc, and just add some text
+13. in App.jsx, we add the routing
+    - <Route path="bookings/:bookingId" element={<Booking />} />
+14. if we click the menu now, it should navigate to the page
+15. next, we need to get the booking data from supabase
+16. in apiBookings.js, jonas already prepared the getBooking function that received an id
+17. now we need to create a custom hook to call the api, we create a useBooking.js file in bookings folder
+18. in useBooking function, we call useQuery, send the queryKey "bookings" and queryFn () => getBooking()
+19. it return isLoading, data: booking and error
+20. we call useParams and get the bookingId from the URL, assign it to bookingId, then we send it to the getBooking() in the queryFn
+21. we return isLoading, error, booking
+22. in BookingDetail component, we call useBooking hook and get booking and isLoading
+23. we check, if isLoading is true, return Spinner
+24. destructure booking to the status and bookingId
+25. replace the #X in the Heading to {bookingId}
+26. the status is automatically used by the provided code
+27. activate the BookingDataBox which accept the booking as a prop
+28. now the booking detail page should already work
