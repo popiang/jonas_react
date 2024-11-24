@@ -717,3 +717,37 @@ validate: *the function*. the function will receive a value, and that value is t
 22. 
 23. now if we try the buttons, it should be reflected in the URL
 24. update the P component, change the 10 to {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
+
+# 382
+1. time to make the pagination really works
+2. in BookingTable.jsx, we need to send the count to the pagination
+3. we will use supabase query to get the count
+4. in getBookings in apiBookings.js, in the select part, add an object containing: {count: "exact"}
+5. this will return a count of the records by the query, destructre in the await query to a count const variable
+6. the the count in the return statement, along with the data, combine in an object
+7. in useBookings, receive the count from useQuery:
+   - data: {data: bookings, count} = {}
+8. then add the count in the return object
+9. in the BookingTable.jsx where we call useBookings, receive the count 
+10. send the count as props in Pagination component
+11. it should work now
+12. next, to make the pagination reflects the displayed records in bookings table, in useBookings, get the page from URL using searchParams
+    - page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"))
+	- default the page to 1 if the parameter is not available in the URL
+	- put this code after the sort part
+13. send it into the useQuery, in the queryFN in the getBookings, and also in the queryKey so the changes of the pagination parameter in the URL will trigger the query to run again
+14. in getBookings, we receive the page parameter
+15. after sort part, we check if page is available
+16. if available we set the query range
+    - query = query.range(from, to)
+17. now we need to set the from and to
+18. but first we need to get the const PAGE_SIZE, the one in the Pagination component
+19. solution is, in utils folder, create a constant.js file and export the const
+    - export const PAGE_SIZE=10;
+20. import it in the Pagination component to replace in in file PAGE_SIZE declaration
+21. also import PAGE_SIZE in apiBookings.js
+22. now set the from and to:
+	- const from = (page - 1) * PAGE_SIZE;
+	- const to = from + PAGE_SIZE - 1;
+23. the pagination should work now, give it a try
+24. react query cache also kicks in
