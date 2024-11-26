@@ -895,3 +895,30 @@ it's the reverse, the button can only be click when it is not paid yet
 check if searchParams.get("page") exist, and if it does, set it to 1, searchParams.set("page", 1)
 19. the issue should be resolved now
 
+# 388
+1. let's implement deleting booking
+2. first we creathe the hooking to delete booking 
+   - in bookings folder, create useDeleteBooking.js
+   - it will use deleteBooking function in apiBookings, already provided by jonas
+   - return isDeleting and deleteBooking function
+   - for the remaining of the code, refer github
+3. then in BookingRow.jsx we wrap Menus.Menu with Modal because we want to have a confirmation modal when we click the delete menu
+4. next after the checkout button, add Modal.Open wrapping Menus.Button
+   - give icon=HiTrash to the button
+   - label is "Delete"
+5. then outside of Menus.List, we add Modal.Window, wrapping ConfirmDelete component
+6. then link Modal.Open with Modal.Window, Modal.Open open="delete", Modal.Window name="delete"
+7. for the ConfirmDelete
+   - resourceName="bookings"
+   - disabled={isDeleting}
+   - onConfirm{() => deleteBooking(bookingId)}
+8. the delete menu from the context menu should work now
+9. then we want to bring the delete button into BookingDetails.jsx
+10. copy paste the Modal.Open and Modal.Window for the delete functionality from BookingRow to BookingDetails.jsx, put it after the checkout button
+11. change the Menus.Button to just Button, with variation props set to "danger" so the button will be red in color
+12. bring in any required imports including useDeleteBooking hook
+13. the delete button should work now, but there's a bug where the delete modal windows stays after deleting
+14. in BookingDetail.jsx, in the deleteBooking function in ConfirmDelete component, after bookingId argument, we add an object of option
+    - onSettled: () => navigate(-1)
+15. this should solve the above issue
+
