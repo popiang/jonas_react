@@ -1090,3 +1090,30 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
 - simple, simply go to supabase, edit all the policies, set the target roles to authenticated
 - done and done
 
+# 396
+1. time to make the header
+2. in ui folder, create HeaderMenu component
+   - rfc
+   - create StyledHeaderMenu styled component
+     - ul
+	 - display:flex
+	 - gap: 0.4rem
+   - return StyledHeaderMenu, wrapping li
+3. the first li wraps
+   - ButtonIcon: onClick{() => navigate("/account")}
+   - it wraps HiOutlineUser
+4. the second li wraps Logout component
+5. call HeaderMenu component in Header.jsx
+   - StyledHeader wraps HeaderMenu
+   - before HeaderMenu, call UserAvatar
+6. in UserAvatar
+   - rfc
+   - call useUser() and get {user}
+   - from user get {fullName, avatar} = user.user_metadata
+   - return StyledUserAvatar wraps Avatar
+   - in Avatar
+     - src={avatar || "default-user.jpg"}
+	 - alt={`Avatar of ${fullName}`}
+   - after Avatar, span wraps {fullName}
+7. finally add some css styles on the StyledHeader, refer github
+
