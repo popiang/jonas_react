@@ -1046,3 +1046,13 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
    - in useLogin.js, change the setQueriesData to setQueryData
    - in the setQueryData, change to user to user.user
 4. done and done
+
+# 393
+1. let's make the signup form
+2. signup form is already provided by jonas
+3. import the SignupForm component into Users.jsx, put it below the heading, wrap between react fragments
+4. in SignupForm, we call useForm() and get register and formState
+5. then get the errors from formState: {errors} = formState
+6. link all input field with the register from form hook
+   - {...register("fullName", {required: "This field is required"})}
+7. the form ui is ready now, give it a try
