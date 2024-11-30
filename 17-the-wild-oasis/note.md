@@ -1084,3 +1084,9 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
 19. in supabase, the new user is in, but it's waiting for verification
 20. go to temp-mail.org, a verify email is received from supabase, open it and click verify email
 21. now the new user is already verified in supabase
+
+# 395
+- let's put some authorization on supabase to protect the app resources
+- simple, simply go to supabase, edit all the policies, set the target roles to authenticated
+- done and done
+
