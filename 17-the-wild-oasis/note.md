@@ -1271,3 +1271,30 @@
 5. jonas has also provided the filter component called DashboardFilter
 6. bring it in the Dashboard.jsx, replace the TEST
 7. the layout whould be visible in the dashboard page now
+
+# 400
+1. jonas already created the functions in apiBookings.js, getBookingsAfterDate and getStaysAfterDate, please read the code to understand it before use
+2. then we create the hook to use those function, called useRecentBookings.js, create it inside dashboard folder
+3. create and export useRecentBookings
+4. call useSearchParams and get searchParams, because we need to get the filter from of the dashboard from the url
+5. we need to calculate the numDays
+   - !searchParams.get("last") ? 7 : Number(searchParams.get("last"))
+   - numDays i believe is either 7, 30 or 90, from the filter
+6. then we get the queryDate
+   - subDays(new Date(), numDays).toISOString()
+   - subDays is a function from date-fns
+   - this will get the date of the past 7, 30 or 90 days
+7. then call useQuery({queryFn: getBookingsAfterDate(queryDate)}), queryKey: ["bookings", `last-${numDays}]
+8. useQuery returns {isLoading, data: bookings}
+9. return isLoading, bookings
+10. call useRecentBookings in DashboardLayout, get bookings, isLoading
+11. if isLoading, return Spinner
+12. console.log(bookings), just to check
+13. now copy paste useRecentBookings.js, rename to useRecentStays.js
+14. change code from bookings to stays
+15. got extract checking:
+    - confirmedStays = stays?.filter
+	- stay => stay.status === "checked-in" || "checked-out"
+16. return confirmedStays along with stays
+17. call useRecentStays in DashboardLayout(), get the stays, confirmedStays and isLoading: isLoading2
+18. change, isLoading || isLoading2 return Spinner
