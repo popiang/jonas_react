@@ -1298,3 +1298,23 @@
 16. return confirmedStays along with stays
 17. call useRecentStays in DashboardLayout(), get the stays, confirmedStays and isLoading: isLoading2
 18. change, isLoading || isLoading2 return Spinner
+
+# 401
+1. time to display the statistic
+2. create Stats component in dashboard folder
+3. rfc	
+4. it receives bookings, confirmedStays, numDays and cabinCount as parameters
+5. it return four Stat components already provided by jonas, wrapped by react segment
+6. call Stats component in DashboardLayout.jsx and place it as the first div within StyledDashboardLayout
+7. since it needs cabinCount, we call useCabins in this componet and get cabins and isLoading: isLoading3
+8. add isLoading3 in the checking to display Spinner
+9. in Stats call, send bookins={bookings}, confirmedStays={confirmedStays}, numDays={numDays} and cabinCount={cabins.length}
+10. in Stats.jsx, calculate:
+	- const numBookings = bookings.length;
+    - const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
+    - const checkins = confirmedStays.length;
+    - const occupation =
+        confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
+        (numDays * cabinCount);
+11. we send all the info into the 4 Stat components, with their respective props, please refer github for the code
+12. the statistic should be visible now in the dashboard page
