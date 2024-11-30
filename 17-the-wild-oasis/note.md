@@ -1038,3 +1038,11 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
    - onClick={logout}
 9. check : !isLoading ? display icon : SpinnerMini
 10. logout function is ready, try it out
+
+# 392
+1. this is a bug fix chapter
+2. the bug is related to the one we found in chapter 390
+3. the fix by jonas:
+   - in useLogin.js, change the setQueriesData to setQueryData
+   - in the setQueryData, change to user to user.user
+4. done and done
