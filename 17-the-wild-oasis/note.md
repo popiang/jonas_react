@@ -964,3 +964,46 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
 21. jonas already provided a SpinnerMini component, so in the button, add a condition, if !isLoading : "Login" ? <SpinnerMini />
 22. the login form should work now, give it a try
 23. remove the console.logs, and now try again with wrong email or password
+
+
+# 390
+1. time to implement authorization
+2. in App.jsx, because all routes are within AppLayout components, so we simply need to protect AppLayout component, then automatically all children components will be protected as well
+3. create ProtectedRoute.jsx in ui folder, accept a children prop then simply return it back
+4. then in AppLayout, wrap the AppLayout with ProtectedRoute component
+5. next, in apiAuth.js, we create a funciton getCurrentUser
+   - await supabase.auth.getSession()
+   - check if a session is exist, if not, simply return null
+   - if exist, then call await supabase.auth.getUser()
+   - get data & error from it
+   - console.log the data
+   - if there's an error, throw new Error(error.message);
+   - return data?.user
+6. next create a hook called useUser.js in authentication folder to handle getting the user
+   - create and export userUser
+   - call useQuery which return isLoading and data: user
+   - queryKey: ['user']
+   - queryFn: getCurrentUser
+   return {isLoading, user}
+7. in ProtectedRoute.jsx, call useUser hook and get user and isLoading
+8. if isLoading true, return FullPage wrapping Spinner
+   - create FullPage styled component, refer github for code
+9. in useUser.js, in the return statement, we add isAuthenticated: user?.role === "authenticated"
+10. in ProtectedRoute, we receive isAuthenticated from useUser()
+11. the we call useEffect, before checking isLoading
+    - check if !isAuthenticated && !isLoading, navigate to "/login"
+	- import navigate
+12. after the part checking isLoading, check if isAuthenticated, return children
+13. to improve user experience, when user login, we manually save the user data to react query cache
+    - in useLogin.js, import queryClient
+    - in onSuccess, before navigate, set it:
+	  - queryClient.setQueriesData(["user"], user)
+    - so in useUser.js, the useQuery will not have to query the user again because the user data is already available in react query cache
+	- thus, the loading in the main page after login should be a lot really quick or maybe not visible at all
+14. a bug is discovered, the solution where after loggin in, the app still stays at the login form:
+    - in useUser, the useQuery also return fetchStatus, get it and send in the return statement
+15. in ProtectedRoute, accept the fetchStatus from useUser, then in the useEffect, in the if checking part add also the fetchStatus, this will fix the bug
+16. next, when the user enter wrong username and password, we want to clear the login form when the toast message appear
+    - in the LoginForm.jsx, in the handleSubmit, in the login function, we can add an object of options after the argument
+	- {onSettled: () => {setEmail(""); setPassword("")}}
+17. the login form is done, give it a try 
