@@ -1262,3 +1262,12 @@
 	- document.documentElement.classList.remove("light-mode")
 25. if is not isDarkMode, do the opposite
 26. the dark mode is fully working now
+
+# 399
+1. let design the dashboard layout first
+2. in DashboardLayout.jsx, rfc
+3. return StyledDashboardLayout, wrapping 4 div (temporarily), for Statistic, Today activity, Chart stay duration and Chart sales
+4. bring it in the Dashboard.jsx, after the first row
+5. jonas has also provided the filter component called DashboardFilter
+6. bring it in the Dashboard.jsx, replace the TEST
+7. the layout whould be visible in the dashboard page now
