@@ -181,7 +181,7 @@
 2. in supabase apidoc, find insert row, copy the code and paste it into the function
 3. in the insert part, in the array simply put the newCabin
 4. as usual, check for error, and if ok return the data
-5. the go to supabase authenticaion, policies, create policy for cabin to allow access for create and update
+5. the go to supabase authentication, policies, create policy for cabin to allow access for create and update
 6. in CreateCabinForm, call useMutation again, get the mutate and isLoading
 7. mutationFn: call the createCabin function and send the new cabin
 8. onSuccess: call toast for success message, call queryClient to invalidates queries with queryKey ['cabins'], and then call reset function that we get from destructure of useForm(), btw call useQueryClient to get queryClient
@@ -922,3 +922,45 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
     - onSettled: () => navigate(-1)
 15. this should solve the above issue
 
+# 389
+1. time to implement authentication for this project
+2. Login.jsx is already exist, and if we type login in the url, it will go to the blank page
+3. LoginForm.jsx is already provided by jonas, add it into Login.jsx and put it between LoginLayout
+4. There's a bug, FormRowVertical does not exist in ui folder, refer to github and add it
+5. above LoginForm, add Heading and Logo component in that order
+   - for Heading, set as="h4" as props
+   - go to Heading component, create a new logic for h4, copy paste the existing code, set font-size to 3rem, font-weight to 600, and text-align currentFilter
+   - by now the login form should look good already
+   - although i'm a bit confused, as normally h4 is supposed to be a bit smaller than h3
+6. next in supabase, let's manually create a user, but before that, navigate to Authentication -> Provider, under Auth Providers list click on email, then uncheck confirm email and click save
+7. then go to Authentication -> Users -> Add User -> create user
+8. then go to Api Docs -> User Managements, go to Log In With Email/Password, copy the code provided by supabase
+9. go back to vscode, create a service file called apiAuth.js in services folder
+10. create a async function called login which accepts an object containing email and password
+11. paste the code from supabase, import supabase, remove the hard coded data in signInWithPassword function
+12. check if there's error, throw new Error(error.message)
+13. if there's no error, simply return the data
+14. let's give it a try to see if it works, in LoginForm, in handleSubmit function:
+	- e.preventDefault
+	- if no email or password, return
+	- call login({email, password})
+	- try to login and check the console log
+15. then, delete the login function call in the code above, then hardcoded the email and password temporarily in useState in LoginForm, to ease the development
+16. then we are gonna use react-query
+    - create useLogin hook in authentication folder
+	- create the useLogin function
+	- call useMutation
+	  - mutationFn: ({email, password}) => loginApi({email, password})
+	    - loginApi is the login function from apiAuth, renamed
+	  - onSuccess: user => console.log(user); navigate("/dashboard")
+	    - import navigate
+	  - onError: err => console.log(err); toast.error("message....")
+	    - import toast
+	- const {mutate: login, isLoading} = useMutation.....
+17. return { login, isLoading }
+18. now in LoginForm, call useLogin and get the login function and isLoading
+19. use the login function in the handleSubmit function to send {email, password}
+20. use the isLoading state in the inputs and button with disabled attribute
+21. jonas already provided a SpinnerMini component, so in the button, add a condition, if !isLoading : "Login" ? <SpinnerMini />
+22. the login form should work now, give it a try
+23. remove the console.logs, and now try again with wrong email or password
