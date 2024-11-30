@@ -1227,3 +1227,38 @@
 24. the form logic is almost identical to UpdateUserDataForm, just need some correction on the labels
 25. add the component into Account.jsx, after UpdateUserDataForm component
 26. everything should work now, give it a try
+
+# 398
+1. first, let's fix some bugs from previous chapter
+2. to setQueryData, the key must be in an array: setQueryData(["user"], user)
+3. second, in updateCurrentUser function in apiAuth, we forgot to put await before supabase when we update avatar in the user
+4. in GlobalStyles.js, refer to github, adjust the content of the file, arranging styles for light-mode and dark-mode
+5. after that, we can test, in inspect, simply add class="dark-mode" at the html element
+6. now, in ui folder, create DarkModeToggle.jsx component which returns ButtonIcon wrapping HiOutlineMoon icon
+7. add it in the HeaderMenu component, in a new li, and now it should be visible in the header
+8. now we need a state available globally to hold the status of the dark mode
+9. create a context folder in src, then create DarkModeContext.js file
+10. create context DarkModeContext
+    - create state isDarkMode, setIsDarkMode = useLocalStorage(false, "isDarkMode")
+11. then create DarkModeProvider({children}), return the provider wrapping the children
+    - send value={{isDarkMode, toggleDarkMode}}
+12. create a toggleDarkMode function that call setIsDarkMode, toggle the value
+13. then at the bottom, create function useDarkMode
+    - const context = useContext(DarkModeContext)
+	- if no context, throw error
+	- return context
+14. export { DarkModeProvider, useDarkMode}
+15. now in DarkModeToggle component, call useDarkMode and get isDarkMode and toggleDarkMode
+16. in onClick event of ButtonIcon, call toggleDarkMode
+17. between ButtonIcon, {isDarkMode ? <HiOutlineSun> : <HiOutlineMoon>}
+18. the toggle button should work now
+19. then we do the same for the logo
+20. in Logo.jsx, call useDarkMode and get isDarkMode
+21. set the src = isDarkMode ? "logo dark" : "logo light"
+22. send the src in the Img src={src}
+23. finally, we need to toggle the class name at the html element between dark-mode and light-mode for the toggle button to take effect
+24. in the DarkModeContext.js, we use useEffect, check isDarkMode, if true we manipulate the dom:
+    - document.documentElement.classList.add("dark-mode")
+	- document.documentElement.classList.remove("light-mode")
+25. if is not isDarkMode, do the opposite
+26. the dark mode is fully working now
