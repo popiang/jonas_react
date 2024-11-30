@@ -1007,3 +1007,34 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
     - in the LoginForm.jsx, in the handleSubmit, in the login function, we can add an object of options after the argument
 	- {onSettled: () => {setEmail(""); setPassword("")}}
 17. the login form is done, give it a try 
+
+# 391
+1. let's allow user to logout
+2. first, let's create a Logout component in authentication folder
+3. rfc, then simply return <ButtonIcon> wrapping <HiArrowRightOnRactangle />
+4. then in apiAuth.js we create a logout function
+   - it's an async function logout
+   - call await supabase.auth.signOut()
+   - return {error}
+   - check if there's an error, throw new Error(error.message)
+5. then in authentication folder, we create useLogout.js hook 
+   - create and export useLogout function 
+   - call useMutation
+     - mutationFn: logoutApi(the logout function from apiAuth)
+	 - onSucces:
+	   - queryClient.removeQueries()
+	     - import queryClient first
+		 - this will remove all caches in react query
+	   - navigate("/login", {replace: true})
+	     - will navigate to login after logout
+		 - replace to true will make sure, if user click back button on the browser after logout, they won't be able to go back into the app
+		 * implement this in the ueLogin as well
+		 - import the navigate first
+	  - useMutation returns mutate:logout & isLoading
+6. useLogout return {logout, isLoading}
+7. then, in Logout.jsx, call useLogout and get logout function and isLoading
+8. in ButtonIcon
+   - disabled={isLoading}
+   - onClick={logout}
+9. check : !isLoading ? display icon : SpinnerMini
+10. logout function is ready, try it out
