@@ -1056,3 +1056,31 @@ check if searchParams.get("page") exist, and if it does, set it to 1, searchPara
 6. link all input field with the register from form hook
    - {...register("fullName", {required: "This field is required"})}
 7. the form ui is ready now, give it a try
+
+# 394
+1. let's make the signup form functionality works
+2. first, in apiAuth, create a signup function
+   - accept {fullName, email, password}
+   - await supabase.auth.signUp({email, password, options})
+   - options: {data: {fullName, avatar: ""}}
+   - return {data,error}
+   - if there's an error, throw new Error
+   - if not, return data
+3. next, create useSignup hook in authentication folder
+   - export function useSignup
+   - call useMutation
+     - mutationFn: signupApi(signup function from apiAuth)
+	 - onSuccess: user => console.log(user); toast.success("messge")
+   - return signup and isLoading
+4. in SignupForm.jsx, call useSignup and get signup and isLoading
+5. in onSubmit function, destructure the parameter : {fullName, email, password}
+6. then in the onSubmit function call signup({fullname, email, password})
+7. now in supabase, activate the confirm email checkbox
+8. go to URL configuration
+   - Site URL: http://localhost:5173/dashboard
+   - Redirect URL: http://localhost:5173
+9. next, go to temp-mail.org to get a working fake email for registration
+10. use the email to create a new user
+19. in supabase, the new user is in, but it's waiting for verification
+20. go to temp-mail.org, a verify email is received from supabase, open it and click verify email
+21. now the new user is already verified in supabase
