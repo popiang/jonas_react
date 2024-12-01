@@ -1348,3 +1348,41 @@
 9. belong Heading, call ResponsiveContainer, wrapping PieChart
 10. for the rest of the code, refer github
 11. the pie chart is ready by now
+
+# 404
+1. let's display the stay for current day, the last part of the dashboard
+2. jonas has already prepared a component called TodayActivity, bring it in DashboardLayout and replace the final div
+3. it doesn't need any props, so we can delete the stays from the useRecentStays call in DashboardLayout
+4. jonas has already prepared a function in apiBooking.js called getStaysTodayActivity, where the data for TodayActivity is queried and filtered directly from supabase, using rather complicated query, the data return can directly be used
+5. then create a hook called useTodayActivity in check-in-out folder to get above data
+6. call useTodayActivity in TodayActivity component and get {stays, isLoading}
+7. in StyledToday after the first row, is isLoading, display Spinner
+8. if is not isLoading, check if activities?.lenght > 0, if yes display <TodayList>, if not display <NoActivity>No activity toda..</>
+9. between TodayList, activities.map(activity)=>TodayItem
+10. the TodayItem activity={activity} key={activity.id}
+11. go to TodayItem component, rfc, then receive {activity} as props
+12. destructure activity to get {id, status, guests, numNights}
+13. it returns StyledTodayItem wrapping:
+	{status === "unconfirmed" && <Tag type="green">Arriving</Tag>}
+	{status === "checked-in" && <Tag type="blue">Departing</Tag>}
+14. then call:
+    -  <Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`} />
+    -  <div>{numNights}</div>
+	- {status === "unconfirmed" && (
+                <Button
+                    size="small"
+                    variation="primary"
+                    as={Link}
+                    to={`/checkin/${id}`}
+                >
+                    Check In
+                </Button>
+            )}
+	- {status === "checked-in" && (
+                <CheckoutButton bookingId={id} />
+            )}
+15. the CheckoutButton is already provided by jonas
+16. in the component, call useCheckout and get {checkout, isCheckingOut}
+17. use checkout in onClick, don't forget to send the bookingId as argument
+18. use isCheckingOut on disabled attribute
+19. done and done
