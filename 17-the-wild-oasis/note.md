@@ -1386,3 +1386,27 @@
 17. use checkout in onClick, don't forget to send the bookingId as argument
 18. use isCheckingOut on disabled attribute
 19. done and done
+
+# 405
+1. now we will implement Error Boundaries
+2. first, npm install react-error-boundary
+3. call ErrorBoundary component in main.jsx, wrap the App
+4. ErrorBoundary receive to props:
+   - FallbackComponent={ErrorFallback}
+     - ErrorFallBack is a component already created by jonas, meaning when the error happened, the component will called
+     - error message will be sent to the component as well
+   - onReset={() => window.location.replace("/")}
+     - this is to send a function so a button can be click by user to go back the main page when the error occured
+5. in ErrorFallback.jsx
+   - rfc
+   - receive {error, resetErrorBoundary}
+   - return
+     - react fragment wrapping
+	 - GlobalStyles
+	 - StyledErrorFallback wrapping
+	   - Box wrapping
+	     - Heading as h1, Something weng wrong
+		 - p {error.message}
+		 - Button size large, onclick=resetErrorBound
+		 - label Try again
+6. it's ready now, try it out
