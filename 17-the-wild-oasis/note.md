@@ -1335,3 +1335,16 @@
     - ResponsiveContainer wraps AreaChart
 	- the rest of the code is also the lengthy to explain, refer github, make sure you understand it!!!!
 13. the chart is ready by now
+
+# 403
+1. let's display the pie chart
+2. jonas already prepared the DurationChart.jsx component file
+3. rfc, it accepts confirmedStays as parameters ({confirmedStays}), then it returns ChartBox wrapping Heading as=h2, with label Stay duration summary
+4. bring it in the DashboardLayout and replace the 3rd div and send confirmedStays as props
+5. in DurationChart, call useDarkMode and get isDarkMode
+6. based on isDarkMode, assign startData either startDataDark or StartDataLight
+7. jonas has already prepared a rather complicated function to prepare the data, called prepareData
+8. call the function, prepareData(startData, confirmedStays) and assign the result to const data
+9. belong Heading, call ResponsiveContainer, wrapping PieChart
+10. for the rest of the code, refer github
+11. the pie chart is ready by now
