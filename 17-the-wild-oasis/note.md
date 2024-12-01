@@ -1318,3 +1318,20 @@
         (numDays * cabinCount);
 11. we send all the info into the 4 Stat components, with their respective props, please refer github for the code
 12. the statistic should be visible now in the dashboard page
+
+# 402
+1. time to display line chart
+2. we will use Recharts library
+3. npm install recharts@2
+4. in dashboard folder, jonas already provided SalesChart.jsx component file
+5. rfc it
+6. return StyledSalesChart, wraps Heading as h2, wraps label Sales
+7. bring SalesChart into DashboardLayout and replace the 4th div
+8. now in SalesChart, first bring call useDarkMode() and get isDarkMode
+9. then bring colors const with the assignment of colors based on the isDarkMode value, from the top to inside the SalesChart component function
+10. then SalesChart need to receive 2 parameters, {bookings, numDays}, so accept them from DashboardLayout, bookings={bookings} numDays={numDays}
+11. the, there will be some logic code to generate the data for the cart, same like the fakeData, the code is a lengthy and complicated to write, so refer to github, and make sure you understand it!!!!!
+12. in StyledSalesChart component, below Heading
+    - ResponsiveContainer wraps AreaChart
+	- the rest of the code is also the lengthy to explain, refer github, make sure you understand it!!!!
+13. the chart is ready by now
