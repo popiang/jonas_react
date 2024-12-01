@@ -1410,3 +1410,18 @@
 		 - Button size large, onclick=resetErrorBound
 		 - label Try again
 6. it's ready now, try it out
+
+# 406
+1. time to fix some bugs
+2. the first bug, in booking table, if we click the context menu, the menu will appear, but if we click it again, it will not close it back
+3. to fix it, in Menus.jsx, in List function, send the second parameter false to useOutsideClick
+4. then in Toogle function, in handleClick function, call e.stopPropagation()
+5. this will solve the first issue
+6. then remove the Uploader component in Sidebar.jsx
+7. next bug is, in booking table page, if we then open any booking details, then in the url we change the id to any random number, the error will be caught by ErrorBoundary, but we don't want that to happen, instead we just want to display a message like the booking does not exist
+8. to fix it, in BookingDetail.jsx, after the Spinner, simplay check if !booking return Empty with resourceName = booking
+9. next, we want when user open the app for the first time, the theme will follow the user's operating system's theme, either dark mode or not
+10. we will use this statement:
+    - window.matchMedia('(prefers-color-scheme: dark)').matches
+	- it will return true or flase
+11. so in DarkModeContext.jsx, in the useLocalStorageState, instead of setting false as the default, put the above statement to set the default
