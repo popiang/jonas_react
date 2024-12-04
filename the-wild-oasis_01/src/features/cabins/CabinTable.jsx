@@ -40,6 +40,8 @@ function CabinTable() {
 
     if (isLoading) return <Spinner />;
 
+	console.log("cabins: ", cabins);
+
     return (
         <Table role="table">
             <TableHeader role="row">

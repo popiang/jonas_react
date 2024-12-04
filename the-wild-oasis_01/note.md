@@ -140,6 +140,8 @@
 20. add another row of data for cabin in supabase
 21. change the staleTime:0
 
+** add the font from goole font to index.html file, for Poppins and Sono
+
 ## 350
 
 1. time to delete
@@ -177,7 +179,7 @@
 
 1. npm install react-hook-form@7
 2. in Cabins.jsx, add showForm state
-3. add Button component Add New Cabin and onClick toggle showForm
+3. add Button component Add New Cabin and onClick toggle showForm in the same row with CabinTable
 4. showForm && CreateCabinForm
 5. in CreateCabinForm, use useForm(), distructure to register & handleSubmit
 6. in the form, in every Input, add {...register("the Input ID")}
