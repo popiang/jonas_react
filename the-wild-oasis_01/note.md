@@ -193,7 +193,7 @@
 2. in supabase apidoc, find insert row, copy the code and paste it into the function
 3. in the insert part, in the array simply put the newCabin
 4. as usual, check for error, and if ok return the data
-5. the go to supabase authentication, policies, create policy for cabin to allow access for create and update
+5. then go to supabase authentication, policies, create policy for cabin to allow access for create and update
 6. in CreateCabinForm, call useMutation again, get the mutate and isLoading
 7. mutationFn: call the createCabin function and send the new cabin
 8. onSuccess: call toast for success message, call queryClient to invalidates queries with queryKey ['cabins'], and then call reset function that we get from destructure of useForm(), btw call useQueryClient to get queryClient
@@ -230,7 +230,7 @@
 2. but we don't have to set the type to file, because we can set the attribute in the styled component => styled.input.attrs({styled: "file"})
 3. in onSubmit function, we need to add the image into the data, although the image is already in the data, but it's an a list. so we first spread the data({...data}), then we add image: data.image.at(0) to it => {...data, image: data.image.at(0)}
 4. now in apiCabin.js, we first create the imageName, it must be unique, so we append with Math.random(), then we replace all slashes to empty string(refer code in github)
-5. the we create the imagePath
+5. then we create the imagePath
     - we import supabaseUrl from supabase.js
     - then we create the imagePath
     - `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
