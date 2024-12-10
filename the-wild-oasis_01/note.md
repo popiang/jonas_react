@@ -307,7 +307,7 @@
 
 # 358
 
-1. let's make a button to duplicate a cabin based on the existing on
+1. let's make a button to duplicate a cabin based on the existing cabin
 2. in CabinRow.jsx, create another button before edit button, for the duplicate
 3. to save space, change the title of the button to icon, HiSquare2Stack for duplicate, HiPencil for edit and HiTrash for delete
 4. then import useCreateCabin() and get the isCreating and createCabin function
@@ -318,7 +318,7 @@
 8. disable the duplicate button using isCreating value
 9. test it out
 
-# 359
+# 359 **
 
 1. time for the settings page
 2. first, let's create RLS policy to update settings table
