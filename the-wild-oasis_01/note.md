@@ -318,12 +318,12 @@
 8. disable the duplicate button using isCreating value
 9. test it out
 
-# 359 **
+# 359
 
 1. time for the settings page
 2. first, let's create RLS policy to update settings table
 3. then, create useSettings.js hook file in settings folder where we put the query code
-4. create useSettings function and export it, call useQuery which takes queryKey and queryFn, queryKey = ['settings'], queryFn is getSettings function which is already available in apiSettings.js file
+4. create useSettings function and export it, call useQuery which takes queryKey and queryFn, queryKey : ['settings'], queryFn is getSettings function which is already available in apiSettings.js file
 5. useQuery will return isLoading, error and data: settings
 6. return these 3 values
 7. in UpdateSettingsForm, call useSettings() and get isLoading and settings
@@ -349,12 +349,12 @@
 13. do the same for the rest of the input fields
 14. test it out
 
-# 367
+# 367 **
 
 1. time to create modal for the form to create cabin
 2. Modal is already created by jonas, rfc in the file, accept children prop, and return the components -> Overlay -> StyledModal -> Button, div -> children
     - for the button, set the icon HiXMark (close button)
-3. in cabins folder, create AddCabin.jsx
+3. in cabins folder, create AddCabin.jsx, then rfc
 4. in this file is where we will call the modal
 5. create a state called isOpenModal to control the visibility of the modal
 6. use the Button component for the add cabin button
